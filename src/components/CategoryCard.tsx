@@ -12,7 +12,7 @@ const CategoryCard: FC = () => {
   const categories = Object.keys(todosState)
 
   return <div>
-    <label htmlFor="category">Change Category</label>
+    <label htmlFor="category">Current Category</label>
     <select
       onChange={(event) => setCurrentCategory(parseInt(event.currentTarget.value))}
       name="category" id="category"
