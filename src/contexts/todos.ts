@@ -2,30 +2,32 @@ import { PayloadAction, createSlice, SliceCaseReducers } from "@reduxjs/toolkit"
 import { IToDo, IToDos } from "../types/states"
 
 const initialState: IToDos = {
-  todos: {
-    Pomodoro: [
-      {
-        checked: false,
-        session: 2,
-        remaining: 2,
-        todo: "Create a pomodoro"
-      },
-      {
-        checked: false,
-        session: 2,
-        remaining: 2,
-        todo: "Complete a pomodoro"
-      },
-    ],
-    Todos: [
-      {
-        checked: false,
-        session: 2,
-        remaining: 2,
-        todo: "Check a todo as completed"
-      }
-    ]
-  },
+  todos: localStorage.getItem("todos")
+    ? JSON.parse(localStorage.getItem("todos") as string)
+    : {
+      Pomodoro: [
+        {
+          checked: false,
+          session: 2,
+          remaining: 2,
+          todo: "Create a pomodoro"
+        },
+        {
+          checked: false,
+          session: 2,
+          remaining: 2,
+          todo: "Complete a pomodoro"
+        },
+      ],
+      Todos: [
+        {
+          checked: false,
+          session: 2,
+          remaining: 2,
+          todo: "Check a todo as completed"
+        }
+      ]
+    },
 }
 
 const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({

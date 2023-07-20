@@ -19,6 +19,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
             <input
               type="checkbox"
               id={`todo-${index}`}
+              checked={item.checked}
               onChange={(event) => {
                 SetTodoChecked([category[0], index, event.currentTarget.checked])
               }}
