@@ -1,13 +1,12 @@
 import classNames from "classnames"
 import { FC } from "react"
 import { CountdownCircleTimer } from "react-countdown-circle-timer"
+import { useSelector } from "react-redux"
+import { RootState } from "../contexts"
 
-interface ClockProps {
-  duration: number,
-  isPlaying: boolean
-}
+const Clock: FC = () => {
 
-const Clock: FC<ClockProps> = ({ duration, isPlaying }) => {
+  const pomodoro = useSelector((state: RootState) => state.Pomodoro)
 
   const convertTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600)
@@ -24,15 +23,16 @@ const Clock: FC<ClockProps> = ({ duration, isPlaying }) => {
 
   return <div className="p-4">
     <CountdownCircleTimer
-      isPlaying={isPlaying}
+      isPlaying={pomodoro.playing}
       size={200}
-      duration={duration}
+      duration={pomodoro.duration}
+      initialRemainingTime={pomodoro.remaining}
       colors={["#52cc63", "#c5ff02", "#ffff09", "#ffd902", "#ff1600"]}
       colorsTime={[
-        duration,
-        duration / 4 * 3,
-        duration / 2,
-        duration / 4,
+        pomodoro.duration,
+        pomodoro.duration / 4 * 3,
+        pomodoro.duration / 2,
+        pomodoro.duration / 4,
         0,
       ]}
     >

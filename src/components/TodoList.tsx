@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { IToDo } from "../types/states"
-import { RemoveCategory, RemoveTodo, SetTodoChecked, SetTodoSessions } from "../utils/states"
+import { RemoveTodo, SetTodo, SetTodoChecked, SetTodoSessions } from "../utils/states"
 import classNames from "classnames"
 import { X } from "lucide-react"
 
@@ -20,7 +20,8 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
             key={item.todo}
             htmlFor={`todo-${index}`}
             className={classNames({
-              "flex gap-2 p-4 border rounded cursor-pointer": true,
+              "flex gap-2 px-4 border rounded cursor-pointer m-1": true,
+              "border-red-500": item.todo === "",
               "line-through": item.checked
             })}
           >
@@ -33,9 +34,11 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
               }}
             />
 
-            <div className="flex-1 line-clamp-1">
-              {item.todo}
-            </div>
+            <input
+              className="flex-1 line-clamp-1 h-12 ml-1 outline-none"
+              defaultValue={item.todo}
+              onBlur={(event) => SetTodo([category[0], index, event.currentTarget.value])}
+            />
 
             <input
               value={item.session}

@@ -1,5 +1,5 @@
 import store from "../contexts"
-import { addCategory, addTodo, removeCategory, removeTodo, setTodoChecked, setTodoSessions } from "../contexts/todos"
+import { addCategory, addTodo, removeCategory, removeTodo, setTodo, setTodoChecked, setTodoSessions } from "../contexts/todos"
 import { IToDo } from "../types/states"
 
 // Save to Local Storage
@@ -24,6 +24,10 @@ export const AddTodo = (payload: [string, IToDo]): void => {
 }
 export const RemoveTodo = (payload: [string, number]): void => {
   store.dispatch(removeTodo(payload))
+  saveTodos()
+}
+export const SetTodo = (payload: [string, number, string]): void => {
+  store.dispatch(setTodo(payload))
   saveTodos()
 }
 export const SetTodoChecked = (payload: [string, number, boolean]): void => {

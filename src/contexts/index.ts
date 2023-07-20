@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit"
 import Todos from "./todos"
+import Pomodoro from "./pomodoro"
 
 const store = configureStore({
   reducer: {
+    Pomodoro,
     Todos
   }
 })
