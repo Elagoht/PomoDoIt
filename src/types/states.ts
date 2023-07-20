@@ -1,7 +1,8 @@
 export interface IToDo {
   checked: boolean
   todo: string
-  session: number
+  session: number,
+  remaining: number
 }
 
 export interface IToDos {

@@ -1,5 +1,5 @@
 import store from "../contexts"
-import { addCategory, addTodo, removeCategory, removeTodo, setTodoChecked, setTodoPomodoro } from "../contexts/todos"
+import { addCategory, addTodo, removeCategory, removeTodo, setTodoChecked, setTodoSessions } from "../contexts/todos"
 import { IToDo } from "../types/states"
 
 export const AddCategory = (payload: string): void => {
@@ -17,6 +17,6 @@ export const RemoveTodo = (payload: [string, number]): void => {
 export const SetTodoChecked = (payload: [string, number, boolean]): void => {
   store.dispatch(setTodoChecked(payload))
 }
-export const SetTodoPomodoro = (payload: [string, number, number]): void => {
-  store.dispatch(setTodoPomodoro(payload))
+export const SetTodoSessions = (payload: [string, number, number]): void => {
+  store.dispatch(setTodoSessions(payload))
 }

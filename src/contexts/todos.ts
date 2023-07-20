@@ -7,11 +7,13 @@ const initialState: IToDos = {
       {
         checked: false,
         session: 2,
+        remaining: 2,
         todo: "Create a pomodoro"
       },
       {
         checked: false,
         session: 2,
+        remaining: 2,
         todo: "Complete a pomodoro"
       },
     ],
@@ -19,6 +21,7 @@ const initialState: IToDos = {
       {
         checked: false,
         session: 2,
+        remaining: 2,
         todo: "Check a todo as completed"
       }
     ]
@@ -56,14 +59,20 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
         state.todos[category][todoIndex].checked = checked
       }
     },
-    setTodoPomodoro: (state: IToDos, action: PayloadAction<[string, number, number]>) => {
+    setTodoSessions: (state: IToDos, action: PayloadAction<[string, number, number]>) => {
       const [category, todoIndex, session] = action.payload
       if (state.todos[category] && state.todos[category][todoIndex]) {
         state.todos[category][todoIndex].session = session
       }
     },
+    setTodoRemainingSessions: (state: IToDos, action: PayloadAction<[string, number, number]>) => {
+      const [category, todoIndex, remaining] = action.payload
+      if (state.todos[category] && state.todos[category][todoIndex]) {
+        state.todos[category][todoIndex].session = remaining
+      }
+    },
   },
 })
 
-export const { addCategory, removeCategory, addTodo, removeTodo, setTodoChecked, setTodoPomodoro } = Todos.actions
+export const { addCategory, removeCategory, addTodo, removeTodo, setTodoChecked, setTodoSessions, setTodoRemainingSessions } = Todos.actions
 export default Todos.reducer
