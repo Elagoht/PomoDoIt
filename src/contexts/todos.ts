@@ -3,7 +3,7 @@ import { IToDo, IToDos } from "../types/states"
 
 const initialState: IToDos = {
   todos: {
-    Goals: [
+    Pomodoro: [
       {
         checked: false,
         session: 2,
@@ -14,12 +14,14 @@ const initialState: IToDos = {
         session: 2,
         todo: "Complete a pomodoro"
       },
+    ],
+    Todos: [
       {
         checked: false,
         session: 2,
         todo: "Check a todo as completed"
       }
-    ],
+    ]
   },
 }
 
