@@ -28,19 +28,19 @@ export const AddTodo = (payload: [string, IToDo]): void => {
   store.dispatch(addTodo(payload))
   saveTodos()
 }
-export const RemoveTodo = (payload: [string, number]): void => {
+export const RemoveTodo = (payload: [string, string]): void => {
   store.dispatch(removeTodo(payload))
   saveTodos()
 }
-export const SetTodo = (payload: [string, number, string]): void => {
+export const SetTodo = (payload: [string, string, string]): void => {
   store.dispatch(setTodo(payload))
   saveTodos()
 }
-export const SetTodoChecked = (payload: [string, number, boolean]): void => {
+export const SetTodoChecked = (payload: [string, string, boolean]): void => {
   store.dispatch(setTodoChecked(payload))
   saveTodos()
 }
-export const SetTodoSessions = (payload: [string, number, number]): void => {
+export const SetTodoSessions = (payload: [string, string, number]): void => {
   store.dispatch(setTodoSessions(payload))
   saveTodos()
 }

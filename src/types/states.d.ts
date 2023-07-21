@@ -1,9 +1,10 @@
 import { PomodoroState } from "../utils/enums"
 
 export interface IToDo {
+  id: string
   checked: boolean
   todo: string
-  session: number,
+  session: number
   remaining: number
 }
 

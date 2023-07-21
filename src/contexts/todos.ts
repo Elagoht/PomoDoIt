@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice, SliceCaseReducers } from "@reduxjs/toolkit"
 import { IToDo, IToDos } from "../types/states"
+import { nanoid } from "nanoid"
 
 const initialState: IToDos = {
   todos: localStorage.getItem("todos")
@@ -7,12 +8,14 @@ const initialState: IToDos = {
     : {
       Pomodoro: [
         {
+          id: nanoid(),
           checked: false,
           session: 2,
           remaining: 2,
           todo: "Create a pomodoro"
         },
         {
+          id: nanoid(),
           checked: false,
           session: 2,
           remaining: 2,
@@ -21,6 +24,7 @@ const initialState: IToDos = {
       ],
       Todos: [
         {
+          id: nanoid(),
           checked: false,
           session: 2,
           remaining: 2,
@@ -49,35 +53,44 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
         [category]: [...(state.todos[category] || []), todo],
       }
     },
-    removeTodo: (state: IToDos, action: PayloadAction<[string, number]>) => {
-      const [category, todoIndex] = action.payload
+    removeTodo: (state: IToDos, action: PayloadAction<[string, string]>) => {
+      const [category, id] = action.payload
       if (state.todos[category]) {
-        state.todos[category].splice(todoIndex, 1)
+        if (state.todos[category].find(todo => todo.id === id)) {
+          state.todos[category].splice(
+            (state.todos[category].findIndex(todo => todo.id === id)),
+            1
+          )
+        }
       }
     },
-    setTodoChecked: (state: IToDos, action: PayloadAction<[string, number, boolean]>) => {
-      const [category, todoIndex, checked] = action.payload
-      if (state.todos[category] && state.todos[category][todoIndex]) {
-        state.todos[category][todoIndex].checked = checked
-      }
+    setTodoChecked: (state: IToDos, action: PayloadAction<[string, string, boolean]>) => {
+      const [category, id, checked] = action.payload
+      if (state.todos[category])
+        if (state.todos[category].find(todo => todo.id === id)) {
+          (state.todos[category].find(todo => todo.id === id) as IToDo).checked = checked
+        }
     },
-    setTodo: (state: IToDos, action: PayloadAction<[string, number, string]>) => {
-      const [category, todoIndex, todo] = action.payload
-      if (state.todos[category] && state.todos[category][todoIndex]) {
-        state.todos[category][todoIndex].todo = todo
-      }
+    setTodo: (state: IToDos, action: PayloadAction<[string, string, string]>) => {
+      const [category, id, todo] = action.payload
+      if (state.todos[category])
+        if (state.todos[category].find(todo => todo.id === id)) {
+          (state.todos[category].find(todo => todo.id === id) as IToDo).todo = todo
+        }
     },
-    setTodoSessions: (state: IToDos, action: PayloadAction<[string, number, number]>) => {
-      const [category, todoIndex, session] = action.payload
-      if (state.todos[category] && state.todos[category][todoIndex]) {
-        state.todos[category][todoIndex].session = session
-      }
+    setTodoSessions: (state: IToDos, action: PayloadAction<[string, string, number]>) => {
+      const [category, id, session] = action.payload
+      if (state.todos[category])
+        if (state.todos[category].find(todo => todo.id === id)) {
+          (state.todos[category].find(todo => todo.id === id) as IToDo).session = session
+        }
     },
-    setTodoRemainingSessions: (state: IToDos, action: PayloadAction<[string, number, number]>) => {
-      const [category, todoIndex, remaining] = action.payload
-      if (state.todos[category] && state.todos[category][todoIndex]) {
-        state.todos[category][todoIndex].session = remaining
-      }
+    setTodoRemainingSessions: (state: IToDos, action: PayloadAction<[string, string, number]>) => {
+      const [category, id, remaining] = action.payload
+      if (state.todos[category])
+        if (state.todos[category].find(todo => todo.id === id)) {
+          (state.todos[category].find(todo => todo.id === id) as IToDo).session = remaining
+        }
     }
   }
 })
