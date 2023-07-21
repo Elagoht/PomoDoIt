@@ -7,12 +7,8 @@
   * {
     font-family: 'Poppins', sans-serif;
   }
-  body {
-    @apply p-4
-  }
   .clock-timer {
     font-family: 'Fira Mono', monospace;
     @apply drop-shadow shadow-current;
   }
-
 }

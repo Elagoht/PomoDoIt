@@ -17,10 +17,10 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
       <div>
         {category[1].map((item, index) => (
           <label
-            key={item.todo}
+            key={index}
             htmlFor={`todo-${index}`}
             className={classNames({
-              "flex gap-2 px-4 border rounded cursor-pointer m-1": true,
+              "bg-white text-neutral-800 flex items-center gap-2 px-4 border rounded cursor-pointer m-1": true,
               "border-red-500": item.todo === "",
               "line-through": item.checked
             })}
@@ -29,14 +29,16 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
               type="checkbox"
               id={`todo-${index}`}
               checked={item.checked}
+              className="w-6 h-6"
               onChange={(event) => {
                 SetTodoChecked([category[0], index, event.currentTarget.checked])
               }}
             />
 
             <input
-              className="flex-1 line-clamp-1 h-12 ml-1 outline-none"
+              className="flex-1 line-clamp-1 h-12 ml-2 outline-none bg-white"
               defaultValue={item.todo}
+              placeholder="Don't leave todos empty"
               onBlur={(event) => SetTodo([category[0], index, event.currentTarget.value])}
             />
 
@@ -47,7 +49,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
               }
               type="number"
               min={1}
-              className="w-16"
+              className="w-20 text-center bg-neutral-100 p-3 mr-2"
             />
 
             <button
@@ -60,9 +62,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
         ))}
       </div>
     </div>
-    <pre>
-      {JSON.stringify(category[1], null, 2)}
-    </pre>
+
   </div>
 }
 

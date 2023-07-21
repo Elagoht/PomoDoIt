@@ -3,6 +3,9 @@ import { FC } from "react"
 import { CountdownCircleTimer } from "react-countdown-circle-timer"
 import { useSelector } from "react-redux"
 import { RootState } from "../contexts"
+import { ArrowRightCircle, Clock1, Clock2, PauseCircle, PlayCircle, TimerReset } from "lucide-react"
+import { ResetTimer, SetPlaying, SetRemaining } from "../utils/states"
+import bell from "../assets/sounds/bell.ogg"
 
 const Clock: FC = () => {
 
@@ -21,7 +24,10 @@ const Clock: FC = () => {
     return timeString
   }
 
-  return <div className="p-4">
+
+  return <div
+    className="flex items-center justify-center h-96 flex-col gap-8"
+  >
     <CountdownCircleTimer
       isPlaying={pomodoro.playing}
       size={200}
@@ -35,6 +41,16 @@ const Clock: FC = () => {
         pomodoro.duration / 4,
         0,
       ]}
+      onUpdate={(remainingTime) => SetRemaining(remainingTime)}
+      onComplete={() => {
+        ResetTimer()
+        new Audio(bell).play()
+        return {
+          delay: 10,
+          shouldRepeat: true,
+          newInitialRemainingTime: pomodoro.duration
+        }
+      }}
     >
       {({ remainingTime, color }) => <div
         className={classNames({
@@ -48,7 +64,24 @@ const Clock: FC = () => {
         {convertTime(remainingTime)}
       </div>}
     </CountdownCircleTimer>
-  </div>
+    {/* Controls */}
+    <div className="flex items-center justify-center gap-4">
+      <div className="w-12"></div>
+      <button
+        onClick={() => {
+          SetPlaying(!pomodoro.playing)
+        }}
+      >
+        {pomodoro.playing
+          ? <PauseCircle strokeWidth={1.5} size={96} className="hover:text-neutral-600 active:text-neutral-400 transition-colors" />
+          : <PlayCircle strokeWidth={1.5} size={96} className="hover:text-neutral-600 active:text-neutral-400 transition-colors" />
+        }
+      </button>
+      <button>
+        <ArrowRightCircle strokeWidth={2} size={48} className="hover:text-neutral-600 active:text-neutral-400 transition-colors" />
+      </button>
+    </div>
+  </div >
 }
 
 export default Clock

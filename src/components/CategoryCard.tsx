@@ -11,18 +11,22 @@ const CategoryCard: FC = () => {
   const todos = Object.entries(todosState)
   const categories = Object.keys(todosState)
 
-  return <div>
-    <label htmlFor="category">Current Category</label>
-    <select
-      onChange={(event) => setCurrentCategory(parseInt(event.currentTarget.value))}
-      name="category" id="category"
-    >
-      {categories.map((category, index) => (
-        <option value={index} key={index}>{category}</option>
-      ))}
-    </select>
+  return <div className="flex flex-col">
+    <div className="flex gap-2 justify-center items-center">
+      <label htmlFor="category">Current Category</label>
+      <select
+        className="p-2 text-neutral-800"
+        onChange={(event) => setCurrentCategory(parseInt(event.currentTarget.value))}
+        name="category" id="category"
+      >
+        {categories.map((category, index) => (
+          <option value={index} key={index}>{category}</option>
+        ))}
+      </select>
+    </div>
+
     <TodoList category={todos[currentCategory]} />
-  </div>
+  </div >
 }
 
 export default CategoryCard
