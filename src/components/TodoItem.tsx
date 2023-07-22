@@ -1,8 +1,8 @@
 import { FC } from "react"
-import { RemoveTodo, SetTodo, SetTodoChecked, SetTodoSessions } from "../utils/states"
+import { RemoveTodo, SetTodo, SetTodoChecked, SetTodoPinend, SetTodoSessions } from "../utils/states"
 import classNames from "classnames"
 import { IToDo } from "../types/states"
-import { X } from "lucide-react"
+import { X, Pin, PinOff } from "lucide-react"
 
 interface TodoItemProps {
   categoryName: string
@@ -38,7 +38,25 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
       placeholder="Don't leave todos empty"
       onBlur={(event) => SetTodo([categoryName, item.id, event.currentTarget.value])}
     />
-
+    {
+      !item.checked &&
+      <label
+        className="h-14 w-14 -mr-2 flex justify-center items-center"
+      >
+        <input
+          type="checkbox"
+          checked={item.checked ? false : item.pinned}
+          disabled={item.checked}
+          onChange={(event) => SetTodoPinend([categoryName, item.id, event.currentTarget.checked])}
+          className="hidden"
+        />
+        {
+          item.pinned
+            ? <Pin />
+            : <PinOff className="text-neutral-400" />
+        }
+      </label>
+    }
     <input
       value={item.session}
       onChange={(event) =>

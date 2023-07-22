@@ -19,9 +19,12 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
     const newToDoSessions: HTMLInputElement = event.currentTarget.previousSibling as HTMLInputElement
     const newToDo: HTMLInputElement = newToDoSessions.previousSibling as HTMLInputElement
 
+    if (newToDo.value === "") return
+
     AddTodo([category[0], {
       id: nanoid(),
       checked: false,
+      pinned: false,
       session: parseInt(newToDoSessions.value),
       remaining: parseInt(newToDoSessions.value),
       todo: newToDo.value
@@ -38,9 +41,12 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
     const newToDoSessions: HTMLInputElement = event.currentTarget.nextSibling as HTMLInputElement
     const newToDo: HTMLInputElement = event.currentTarget
 
+    if (newToDo.value === "") return
+
     AddTodo([category[0], {
       id: nanoid(),
       checked: false,
+      pinned: false,
       session: parseInt(newToDoSessions.value),
       remaining: parseInt(newToDoSessions.value),
       todo: newToDo.value
@@ -74,7 +80,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
           className="flex gap-2 bg-green-100 hover:bg-green-200 -mx-2 -mr-4 p-4 text-green-600 hover:text-green-800 transition-colors"
           onClick={(event) => handleNewToDo(event)}
         >
-          <Plus strokeWidth={4} />
+          <Plus />
         </button>
 
       </label>
@@ -83,14 +89,13 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
         {structuredClone(todos)
           .sort((a, b) =>
-            a.checked === b.checked
-              ? a.session >= b.session
-                ? 1
-                : -1
-              : a.checked
-                ? 1
-                : -1
-          )
+            a.pinned !== b.pinned
+              ? (a.pinned ? -1 : 1)
+              : a.checked !== b.checked
+                ? a.checked
+                  ? 1
+                  : -1
+                : a.session - b.session)
           .map((item, index) => (
             <TodoItem
               categoryName={categoryName}

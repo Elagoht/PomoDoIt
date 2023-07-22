@@ -6,6 +6,7 @@ export interface IToDo {
   todo: string
   session: number
   remaining: number
+  pinned: boolean
 }
 
 export interface IToDos {

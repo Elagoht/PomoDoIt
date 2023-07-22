@@ -1,6 +1,6 @@
 import store from "../contexts"
 import { resetTimer, setDuration, setPlaying, setRemaining, setState } from "../contexts/pomodoro"
-import { addCategory, addTodo, removeCategory, removeTodo, setTodo, setTodoChecked, setTodoSessions } from "../contexts/todos"
+import { addCategory, addTodo, removeCategory, removeTodo, setTodo, setTodoChecked, setTodoPinned, setTodoSessions } from "../contexts/todos"
 import { IToDo } from "../types/states"
 
 // Save to Local Storage
@@ -37,7 +37,12 @@ export const SetTodo = (payload: [string, string, string]): void => {
   saveTodos()
 }
 export const SetTodoChecked = (payload: [string, string, boolean]): void => {
+  store.dispatch(setTodoPinned([payload[0], payload[1], false]))
   store.dispatch(setTodoChecked(payload))
+  saveTodos()
+}
+export const SetTodoPinend = (payload: [string, string, boolean]): void => {
+  store.dispatch(setTodoPinned(payload))
   saveTodos()
 }
 export const SetTodoSessions = (payload: [string, string, number]): void => {
