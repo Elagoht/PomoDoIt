@@ -2,6 +2,7 @@ import { PomodoroState } from "../utils/enums"
 
 export interface IToDo {
   id: string
+  active: boolean
   checked: boolean
   todo: string
   session: number

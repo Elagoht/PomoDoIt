@@ -24,6 +24,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
     AddTodo([category[0], {
       id: nanoid(),
       checked: false,
+      active: false,
       pinned: false,
       session: parseInt(newToDoSessions.value),
       remaining: parseInt(newToDoSessions.value),
@@ -46,6 +47,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
     AddTodo([category[0], {
       id: nanoid(),
       checked: false,
+      active: false,
       pinned: false,
       session: parseInt(newToDoSessions.value),
       remaining: parseInt(newToDoSessions.value),
@@ -89,13 +91,19 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
         {structuredClone(todos)
           .sort((a, b) =>
-            a.pinned !== b.pinned
-              ? (a.pinned ? -1 : 1)
-              : a.checked !== b.checked
-                ? a.checked
-                  ? 1
-                  : -1
-                : a.session - b.session)
+            a.active !== b.active
+              ? a.active
+                ? -1
+                : 1
+              : a.pinned !== b.pinned
+                ? a.pinned
+                  ? -1
+                  : 1
+                : a.checked !== b.checked
+                  ? a.checked
+                    ? 1
+                    : -1
+                  : a.session - b.session)
           .map((item, index) => (
             <TodoItem
               categoryName={categoryName}
