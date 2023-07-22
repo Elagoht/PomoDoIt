@@ -28,7 +28,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
         SetTodoChecked([categoryName, item.id, event.currentTarget.checked])
       }}
     />
-
+    {/* 
     <input
       className={classNames({
         "flex-1 line-clamp-1 h-12 ml-2 outline-none bg-white": true,
@@ -37,7 +37,10 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
       defaultValue={item.todo}
       placeholder="Don't leave todos empty"
       onBlur={(event) => SetTodo([categoryName, item.id, event.currentTarget.value])}
-    />
+    /> */}
+    <div className="flex-1">
+      {item.todo}
+    </div>
 
     <input
       value={item.session}

@@ -4,6 +4,7 @@ import { AddTodo } from "../utils/states"
 import { Plus } from "lucide-react"
 import { nanoid } from "nanoid"
 import TodoItem from "./TodoItem"
+import { useAutoAnimate } from "@formkit/auto-animate/react"
 
 interface TodoListProps {
   category: [string, IToDo[]]
@@ -12,6 +13,7 @@ interface TodoListProps {
 const TodoList: FC<TodoListProps> = ({ category }) => {
 
   const [categoryName, todos] = category
+  const [animationParent] = useAutoAnimate()
 
   const handleNewToDo = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     const newToDoSessions: HTMLInputElement = event.currentTarget.previousSibling as HTMLInputElement
@@ -56,13 +58,28 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
       </label>
 
-      {todos.map((item, index) => (
-        <TodoItem
-          categoryName={categoryName}
-          index={index} key={index}
-          item={item}
-        />
-      ))}
+      <div ref={animationParent}>
+
+        {structuredClone(todos)
+          .sort((a, b) =>
+            a.checked === b.checked
+              ? a.session >= b.session
+                ? 1
+                : -1
+              : a.checked
+                ? 1
+                : -1
+          )
+          .map((item, index) => (
+            <TodoItem
+              categoryName={categoryName}
+              index={index} key={item.id}
+              item={item}
+            />
+          ))
+        }
+
+      </div>
     </div>
   </div >
 }
