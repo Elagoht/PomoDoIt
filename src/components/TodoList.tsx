@@ -31,6 +31,26 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
     newToDoSessions.value = "1"
   }
 
+  const handleNewToDoWithEnter = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    console.log(event.key)
+    if (event.key !== "Enter") return
+
+    const newToDoSessions: HTMLInputElement = event.currentTarget.nextSibling as HTMLInputElement
+    const newToDo: HTMLInputElement = event.currentTarget
+
+    AddTodo([category[0], {
+      id: nanoid(),
+      checked: false,
+      session: parseInt(newToDoSessions.value),
+      remaining: parseInt(newToDoSessions.value),
+      todo: newToDo.value
+    }])
+
+    newToDo.value = ""
+    newToDoSessions.value = "1"
+  }
+
+
   return <div>
 
     <div key={category[0]}>
@@ -40,6 +60,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
         <input
           className="flex-1 line-clamp-1 h-12 ml-2 outline-none bg-white"
           placeholder="A new responsibility"
+          onKeyDown={(event) => handleNewToDoWithEnter(event)}
         />
 
         <input
