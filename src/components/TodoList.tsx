@@ -64,7 +64,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
       <label className="bg-white text-neutral-800 flex items-center gap-2 px-4 border rounded cursor-pointer m-1">
         <input
-          className="flex-1 line-clamp-1 h-12 ml-2 outline-none bg-white"
+          className="flex-1 line-clamp-1 h-12 outline-none bg-white"
           placeholder="A new responsibility"
           onKeyDown={(event) => handleNewToDoWithEnter(event)}
         />
@@ -77,7 +77,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
         />
 
         <button
-          className="flex gap-2 bg-green-100 hover:bg-green-200 -mx-2 -mr-4 p-4 text-green-600 hover:text-green-800 transition-colors"
+          className="flex gap-2 bg-green-100 hover:bg-green-200 -mx-2 -mr-4 p-4 text-green-600 hover:text-green-800 transition-colors rounded-sm"
           onClick={(event) => handleNewToDo(event)}
         >
           <Plus />

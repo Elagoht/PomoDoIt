@@ -1,8 +1,9 @@
-import { FC } from "react"
+import { FC, useState } from "react"
 import { RemoveTodo, SetTodo, SetTodoChecked, SetTodoPinend, SetTodoSessions } from "../utils/states"
 import classNames from "classnames"
 import { IToDo } from "../types/states"
-import { X, Pin, PinOff } from "lucide-react"
+import { X, Pin, PinOff, Check } from "lucide-react"
+import { AnimatePresence, motion } from "framer-motion"
 
 interface TodoItemProps {
   categoryName: string
@@ -11,6 +12,9 @@ interface TodoItemProps {
 }
 
 const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
+
+  const [deletion, setDeletion] = useState<boolean>(false)
+
   return <label
     htmlFor={`todo-${index}`}
     className={classNames({
@@ -66,10 +70,27 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
       min="0"
       className="w-20 text-center bg-neutral-100 p-4"
     />
-
+    <AnimatePresence mode="wait">
+      {
+        deletion &&
+        <motion.button
+          initial={{ marginRight: "-3.5rem", opacity: 0 }}
+          animate={{ marginRight: 0, opacity: 1 }}
+          exit={{ marginRight: "-3.5rem", opacity: 0 }}
+          className="bg-yellow-200 hover:bg-yellow-300 -ml-2 p-4 text-yellow-600 hover:text-yellow-800 transition-colors rounded-sm"
+          onClick={() => RemoveTodo([categoryName, item.id])}
+        >
+          <Check />
+        </motion.button>
+      }
+    </AnimatePresence>
     <button
-      onClick={() => RemoveTodo([categoryName, item.id])}
-      className=" bg-red-100 hover:bg-red-200 -mx-2 -mr-4 p-4 text-red-600 hover:text-red-800 transition-colors"
+      onClick={() => setDeletion(prev => !prev)}
+      className={classNames({
+        "-mx-2 -mr-4 p-4 text-red-600 hover:text-red-800 transition-colors rounded-sm": true,
+        "bg-red-100 hover:bg-red-200": !deletion,
+        "bg-red-200 hover:bg-red-300": deletion,
+      })}
     >
       <X />
     </button>

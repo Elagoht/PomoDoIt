@@ -12,8 +12,8 @@ const StateSelector: FC = () => {
     <button
       onClick={() => SetState(PomodoroState.work)}
       className={classNames({
-        "px-4 py-2 rounded-l-lg border-2 border-red-800 w-32": true,
-        "bg-red-500 text-neutral-200": pomodoro.state === PomodoroState.work
+        "bg-white px-4 py-2 rounded-l-lg border-2 border-red-800 w-32": true,
+        "!bg-red-500 text-neutral-200": pomodoro.state === PomodoroState.work
       })}
     >
       work!
@@ -21,8 +21,8 @@ const StateSelector: FC = () => {
     <button
       onClick={() => SetState(PomodoroState["short break"])}
       className={classNames({
-        "px-4 py-2 border-y-2 border-red-800 w-32": true,
-        "bg-red-500 text-neutral-200": pomodoro.state === PomodoroState["short break"]
+        "bg-white px-4 py-2 border-y-2 border-red-800 w-32": true,
+        "!bg-red-500 text-neutral-200": pomodoro.state === PomodoroState["short break"]
       })}
     >
       short break
@@ -30,8 +30,8 @@ const StateSelector: FC = () => {
     <button
       onClick={() => SetState(PomodoroState["long break"])}
       className={classNames({
-        "px-4 py-2 rounded-r-lg border-2 border-red-800 w-32": true,
-        "bg-red-500 text-neutral-200": pomodoro.state === PomodoroState["long break"]
+        "bg-white px-4 py-2 rounded-r-lg border-2 border-red-800 w-32": true,
+        "!bg-red-500 text-neutral-200": pomodoro.state === PomodoroState["long break"]
       })}
     >
       long break
