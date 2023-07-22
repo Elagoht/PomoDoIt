@@ -49,6 +49,23 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
       delete newObject[action.payload]
       state.todos = newObject
     },
+    renameCategory: (state: IToDos, action: PayloadAction<[string, string]>) => {
+      const [oldName, newName] = action.payload
+      if (oldName !== "" && newName !== "" && oldName !== newName) {
+        if (state.todos[oldName] !== undefined) {
+          const updatedTodos = {
+            ...state.todos,
+            [newName]: state.todos[oldName]
+          };
+          delete updatedTodos[oldName];
+
+          return {
+            ...state,
+            todos: updatedTodos
+          }
+        }
+      }
+    },
     addTodo: (state: IToDos, action: PayloadAction<[string, IToDo]>) => {
       const [category, todo] = action.payload
       state.todos = {
@@ -105,5 +122,10 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
   }
 })
 
-export const { addCategory, removeCategory, addTodo, removeTodo, setTodo, setTodoChecked, setTodoPinned, setTodoSessions, setTodoRemainingSessions } = Todos.actions
+export const {
+  addCategory, removeCategory, renameCategory,
+  addTodo, removeTodo, setTodo,
+  setTodoChecked, setTodoPinned, setTodoSessions,
+  setTodoRemainingSessions
+} = Todos.actions
 export default Todos.reducer

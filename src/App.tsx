@@ -9,7 +9,7 @@ const App: FC = () => {
     <StateSelector />
     <div
       id="todo-container"
-      className="bg-red-500 border-2 border-red-800 my-4 p-4 pt-8 -mt-6 text-neutral-200 rounded-3xl mx-auto max-w-2xl"
+      className="bg-red-500 border-2 border-red-800 my-4 p-4 pt-8 -mt-6 text-white rounded-3xl mx-auto max-w-2xl"
     >
       <CategoryCard />
     </div>
