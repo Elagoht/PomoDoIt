@@ -1,8 +1,8 @@
 import { FC, useState } from "react"
-import { RemoveTodo, SetTodo, SetTodoActive, SetTodoChecked, SetTodoPinned, SetTodoSessions } from "../utils/states"
+import { RemoveTodo, SetTodo, SetTodoChecked, SetTodoPinend, SetTodoSessions } from "../utils/states"
 import classNames from "classnames"
 import { IToDo } from "../types/states"
-import { X, Pin, PinOff, Check, Locate, LocateFixed } from "lucide-react"
+import { X, Pin, PinOff, Check } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 
 interface TodoItemProps {
@@ -43,42 +43,23 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
       onBlur={(event) => SetTodo([categoryName, item.id, event.currentTarget.value])}
     />
     {
-      !item.checked && <>
-        <label
-          className="cursor-pointer bg-neutral-50 hover:bg-neutral-200 transition-colors h-14 w-10 -mr-2 flex justify-center items-center"
-          title={item.pinned ? "Pin" : "Unpin"}
-        >
-          <input
-            type="checkbox"
-            checked={item.checked ? false : item.pinned}
-            disabled={item.checked}
-            onChange={(event) => SetTodoPinned([categoryName, item.id, event.currentTarget.checked])}
-            className="hidden"
-          />
-          {
-            item.pinned
-              ? <Pin />
-              : <PinOff className="text-neutral-400" />
-          }
-        </label>
-        <label
-          className="cursor-pointer -mr-2 bg-neutral-50 hover:bg-neutral-200 transition-colors h-14 w-10 flex justify-center items-center"
-          title={item.active ? "Set as inactive" : "Set as active"}
-        >
-          <input
-            type="checkbox"
-            checked={item.checked ? false : item.active}
-            disabled={item.checked}
-            onChange={(event) => SetTodoActive([categoryName, item.id, event.currentTarget.checked])}
-            className="hidden"
-          />
-          {
-            item.active
-              ? <LocateFixed />
-              : <Locate className="text-neutral-400" />
-          }
-        </label>
-      </>
+      !item.checked &&
+      <label
+        className="h-14 w-14 -mr-2 flex justify-center items-center"
+      >
+        <input
+          type="checkbox"
+          checked={item.checked ? false : item.pinned}
+          disabled={item.checked}
+          onChange={(event) => SetTodoPinend([categoryName, item.id, event.currentTarget.checked])}
+          className="hidden"
+        />
+        {
+          item.pinned
+            ? <Pin />
+            : <PinOff className="text-neutral-400" />
+        }
+      </label>
     }
     <input
       value={item.session}
