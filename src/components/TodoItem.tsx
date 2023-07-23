@@ -97,7 +97,10 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
           animate={{ marginRight: 0, opacity: 1 }}
           exit={{ marginRight: "-3.5rem", opacity: 0 }}
           className="bg-yellow-200 hover:bg-yellow-300 -ml-2 p-4 text-yellow-600 hover:text-yellow-800 transition-colors rounded-sm"
-          onClick={() => RemoveTodo([categoryName, item.id])}
+          onClick={() => {
+            RemoveTodo([categoryName, item.id]);
+            (document.querySelector("#category") as HTMLSelectElement).value = "0"
+          }}
         >
           <Check />
         </motion.button>

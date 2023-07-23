@@ -3,7 +3,7 @@ import { FC } from "react"
 import { CountdownCircleTimer } from "react-countdown-circle-timer"
 import { useSelector } from "react-redux"
 import { RootState } from "../contexts"
-import { ArrowRightCircle, Clock1, Clock2, PauseCircle, PlayCircle, TimerReset } from "lucide-react"
+import { ArrowRightCircle, PauseCircle, PlayCircle } from "lucide-react"
 import { ResetTimer, SetPlaying, SetRemaining } from "../utils/states"
 import bell from "../assets/sounds/bell.ogg"
 
