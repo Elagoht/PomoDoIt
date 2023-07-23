@@ -1,13 +1,20 @@
 import { FC } from 'react'
 import { AddCategory } from '../utils/states'
 import { motion } from 'framer-motion'
+import { useSelector } from 'react-redux'
+import { RootState } from '../contexts'
 
 interface AddNewCategoryProps {
   setRename: (value: React.SetStateAction<boolean>) => void
   setAddCategory: (value: React.SetStateAction<boolean>) => void
+  setCurrentCategory: (value: React.SetStateAction<number>) => void
 }
 
-const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) => {
+const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory, setCurrentCategory }) => {
+
+  const categoryCount = Object.keys(
+    useSelector((state: RootState) => state.Todos.todos)
+  ).length
 
   return <motion.div
     initial={{ height: 0, marginTop: 0, marginBottom: 0, opacity: 0 }}
@@ -23,6 +30,7 @@ const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) 
         AddCategory(event.currentTarget.value)
         setRename(false)
         setAddCategory(false)
+        setCurrentCategory(categoryCount)
       }}
     />
     <button
@@ -32,6 +40,7 @@ const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) 
         AddCategory((document.querySelector("#category-adder") as HTMLInputElement).value)
         setRename(false)
         setAddCategory(false)
+        setCurrentCategory(categoryCount)
       }}
     >
       Add

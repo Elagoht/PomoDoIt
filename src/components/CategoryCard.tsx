@@ -45,12 +45,13 @@ const CategoryCard: FC = () => {
   }
 
   return categories.length === 0
-    ? <AddNewCategory setRename={setRename} setAddCategory={setAddCategory} />
+    ? <AddNewCategory setRename={setRename} setAddCategory={setAddCategory} setCurrentCategory={setCurrentCategory} />
     : <div className="flex flex-col">
       <div className="flex gap-2 justify-center items-center">
         <label htmlFor="category">Category</label>
         <select
           className="p-2 text-neutral-800 rounded-sm flex-1"
+          value={currentCategory}
           onChange={(event) => {
             setCurrentCategory(parseInt(event.currentTarget.value))
             setRename(false)
@@ -97,7 +98,10 @@ const CategoryCard: FC = () => {
             </input>
             <button
               className="p-2 bg-red-700 hover:bg-red-800 transition-colors rounded-sm"
-              onClick={() => RemoveCategory(categories[currentCategory])}
+              onClick={() => {
+                RemoveCategory(categories[currentCategory])
+                setCurrentCategory(prev => prev > 0 ? prev - 1 : 0)
+              }}
             >
               <Trash2 />
             </button>
@@ -119,7 +123,7 @@ const CategoryCard: FC = () => {
       <AnimatePresence mode="wait">
         {
           addCategory &&
-          <AddNewCategory setRename={setRename} setAddCategory={setAddCategory} />
+          <AddNewCategory setRename={setRename} setAddCategory={setAddCategory} setCurrentCategory={setCurrentCategory} />
         }
       </AnimatePresence>
       <TodoList category={todos[currentCategory]} />
