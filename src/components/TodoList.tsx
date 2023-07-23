@@ -23,6 +23,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
     AddTodo([category[0], {
       id: nanoid(),
+      active: false,
       checked: false,
       pinned: false,
       session: parseInt(newToDoSessions.value),
@@ -45,6 +46,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
     AddTodo([category[0], {
       id: nanoid(),
+      active: false,
       checked: false,
       pinned: false,
       session: parseInt(newToDoSessions.value),
@@ -77,7 +79,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
         />
 
         <button
-          className="flex gap-2 bg-green-100 hover:bg-green-200 -mx-2 -mr-4 p-4 text-green-600 hover:text-green-800 transition-colors rounded-sm"
+          className="flex gap-2 bg-green-100 hover:bg-green-200 -mx-2 -mr-4 p-4 text-green-600 hover:text-green-800 transition-colors rounded-lg"
           onClick={(event) => handleNewToDo(event)}
         >
           <Plus />
@@ -89,13 +91,17 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
         {structuredClone(todos)
           .sort((a, b) =>
-            a.pinned !== b.pinned
-              ? (a.pinned ? -1 : 1)
-              : a.checked !== b.checked
-                ? a.checked
-                  ? 1
-                  : -1
-                : a.session - b.session)
+            a.active !== b.active
+              ? a.active
+                ? -1
+                : 1
+              : a.pinned !== b.pinned
+                ? (a.pinned ? -1 : 1)
+                : a.checked !== b.checked
+                  ? a.checked
+                    ? 1
+                    : -1
+                  : a.session - b.session)
           .map((item, index) => (
             <TodoItem
               categoryName={categoryName}

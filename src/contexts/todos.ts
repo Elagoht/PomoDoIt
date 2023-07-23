@@ -9,6 +9,7 @@ const initialState: IToDos = {
       Pomodoro: [
         {
           id: nanoid(),
+          active: false,
           checked: false,
           pinned: false,
           session: 2,
@@ -17,6 +18,7 @@ const initialState: IToDos = {
         },
         {
           id: nanoid(),
+          active: false,
           checked: false,
           pinned: false,
           session: 2,
@@ -27,6 +29,7 @@ const initialState: IToDos = {
       Todos: [
         {
           id: nanoid(),
+          active: false,
           checked: false,
           pinned: false,
           session: 2,
@@ -91,6 +94,13 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
           (state.todos[category].find(todo => todo.id === id) as IToDo).checked = checked
         }
     },
+    setTodoActive: (state: IToDos, action: PayloadAction<[string, string, boolean]>) => {
+      const [category, id, active] = action.payload
+      if (state.todos[category])
+        if (state.todos[category].find(todo => todo.id === id)) {
+          (state.todos[category].find(todo => todo.id === id) as IToDo).active = active
+        }
+    },
     setTodoPinned: (state: IToDos, action: PayloadAction<[string, string, boolean]>) => {
       const [category, id, pinned] = action.payload
       if (state.todos[category])
@@ -125,7 +135,7 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
 export const {
   addCategory, removeCategory, renameCategory,
   addTodo, removeTodo, setTodo,
-  setTodoChecked, setTodoPinned, setTodoSessions,
-  setTodoRemainingSessions
+  setTodoChecked, setTodoActive, setTodoPinned,
+  setTodoSessions, setTodoRemainingSessions
 } = Todos.actions
 export default Todos.reducer

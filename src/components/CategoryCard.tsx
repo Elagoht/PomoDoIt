@@ -6,11 +6,13 @@ import { Check, PenLine, Plus, Trash2, X } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { RemoveCategory, RenameCategory } from "../utils/states"
 import AddNewCategory from "./AddNewCategory"
+import classNames from "classnames"
 
 const CategoryCard: FC = () => {
 
   const [currentCategory, setCurrentCategory] = useState<number>(0)
   const [rename, setRename] = useState<boolean>(false)
+  const [deleting, setDeleting] = useState<boolean>(false)
   const [addCategory, setAddCategory] = useState<boolean>(false)
 
   const todosState = useSelector((state: RootState) => state.Todos.todos)
@@ -50,11 +52,12 @@ const CategoryCard: FC = () => {
       <div className="flex gap-2 justify-center items-center">
         <label htmlFor="category">Category</label>
         <select
-          className="p-2 text-neutral-800 rounded-sm flex-1"
+          className="p-2 text-neutral-800 rounded-lg flex-1"
           value={currentCategory}
           onChange={(event) => {
             setCurrentCategory(parseInt(event.currentTarget.value))
             setRename(false)
+            setDeleting(false)
           }}
           name="category" id="category"
         >
@@ -67,8 +70,13 @@ const CategoryCard: FC = () => {
             onClick={() => {
               setRename(prev => !prev)
               setAddCategory(false)
+              setDeleting(false)
             }}
-            className="p-2 -m-1"
+            className={classNames({
+              "p-[calc(0.5rem_-_2px)] border-2 rounded-lg": true,
+              "border-neutral-50 hover:border-neutral-200 ": !rename,
+              "bg-blue-500 hover:bg-blue-600 border-blue-500 hover:border-blue-600": rename
+            })}
           >
             <PenLine />
           </button>
@@ -77,7 +85,11 @@ const CategoryCard: FC = () => {
               setAddCategory(prev => !prev)
               setRename(false)
             }}
-            className="p-2 -m-1"
+            className={classNames({
+              "p-[calc(0.5rem_-_2px)] border-2 rounded-lg": true,
+              "border-neutral-50 hover:border-neutral-200 ": !addCategory,
+              "bg-green-500 hover:bg-green-600 border-green-500 hover:border-green-600": addCategory
+            })}
           >
             <Plus />
           </button>
@@ -88,31 +100,59 @@ const CategoryCard: FC = () => {
           <motion.div
             className="flex gap-2 overflow-y-hidden"
             initial={{ height: 0, marginTop: 0, marginBottom: 0, opacity: 0 }}
-            animate={{ height: "unset", marginTop: "0.25rem", marginBottom: "0.25rem", opacity: 1 }}
+            animate={{ height: "unset", marginTop: "0.5rem", marginBottom: "0.5rem", opacity: 1 }}
             exit={{ height: 0, marginTop: 0, marginBottom: 0, opacity: 0 }}
           >
+            <AnimatePresence mode="wait">
+              {!deleting
+                ? <motion.button
+                  initial={{ width: "5.5rem" }}
+                  animate={{ width: "2.5rem" }}
+                  exit={{ width: "5.5rem" }}
+                  className="p-2 bg-red-700 hover:bg-red-800 transition-colors rounded-lg"
+                  onClick={() => setDeleting(true)}
+                >
+                  <Trash2 />
+                </motion.button>
+                : <motion.div
+                  className="flex gap-2"
+                  initial={{ width: "2.5rem" }}
+                  animate={{ width: "5.5rem" }}
+                  exit={{ width: "2.5rem" }}
+                >
+                  <button
+                    className="p-2 bg-gray-500 hover:bg-gray-600 transition-colors rounded-lg"
+                    onClick={() => setDeleting(false)}
+                  >
+                    <X />
+                  </button>
+                  <button
+                    className="p-2 bg-green-500 hover:bg-green-600 transition-colors rounded-lg"
+                    onClick={() => {
+                      RemoveCategory(categories[currentCategory])
+                      setCurrentCategory(prev => prev > 0 ? prev - 1 : 0)
+                      setDeleting(false)
+                    }}
+                  >
+                    <Check />
+                  </button>
+                </motion.div>
+              }
+            </AnimatePresence>
             <input
-              className="flex-1 p-2 rounded-sm text-neutral-800"
+              className="flex-1 p-2 rounded-lg text-neutral-800"
+              onFocus={() => setDeleting(false)}
               onKeyDown={(event) => handleRenameWithEnter(event)}
             >
             </input>
             <button
-              className="p-2 bg-red-700 hover:bg-red-800 transition-colors rounded-sm"
-              onClick={() => {
-                RemoveCategory(categories[currentCategory])
-                setCurrentCategory(prev => prev > 0 ? prev - 1 : 0)
-              }}
-            >
-              <Trash2 />
-            </button>
-            <button
-              className="p-2 bg-gray-500 hover:bg-gray-600 transition-colors rounded-sm"
+              className="p-2 bg-gray-500 hover:bg-gray-600 transition-colors rounded-lg"
               onClick={() => setRename(false)}
             >
               <X />
             </button>
             <button
-              className="p-2 bg-green-500 hover:bg-green-600 transition-colors rounded-sm"
+              className="p-2 bg-green-500 hover:bg-green-600 transition-colors rounded-lg"
               onClick={handleRenameWithTick}
             >
               <Check />
