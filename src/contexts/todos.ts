@@ -53,21 +53,31 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
       state.todos = newObject
     },
     renameCategory: (state: IToDos, action: PayloadAction<[string, string]>) => {
-      const [oldName, newName] = action.payload
+      const [oldName, newName] = action.payload;
       if (oldName !== "" && newName !== "" && oldName !== newName) {
         if (state.todos[oldName] !== undefined) {
-          const updatedTodos = {
-            ...state.todos,
-            [newName]: state.todos[oldName]
-          };
-          delete updatedTodos[oldName];
+          // Yeni bir obje oluşturun
+          const updatedTodos = {};
 
+          // Mevcut todosları yeni objeye ekleyin (sadece anahtar adını değiştirerek)
+          Object.keys(state.todos).forEach(key => {
+            if (key === oldName) {
+              updatedTodos[newName] = state.todos[oldName];
+            } else {
+              updatedTodos[key] = state.todos[key];
+            }
+          });
+
+          // state ve todosları güncelleyerek yeni bir state objesi döndürün
           return {
             ...state,
             todos: updatedTodos
-          }
+          };
         }
       }
+
+      // Eğer koşullar sağlanmazsa state'i değiştirmeden aynı state'i döndürün
+      return state;
     },
     addTodo: (state: IToDos, action: PayloadAction<[string, IToDo]>) => {
       const [category, todo] = action.payload
