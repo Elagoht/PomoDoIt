@@ -64,7 +64,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
     <div key={category[0]}>
       <h1 className="text-2xl">{category[0]}</h1>
 
-      <label className="bg-white text-neutral-800 flex items-center gap-2 px-4 border rounded cursor-pointer m-1">
+      <label className="bg-white text-neutral-800 flex items-center gap-2 px-4 border rounded-lg cursor-pointer m-1">
         <input
           className="flex-1 line-clamp-1 h-12 outline-none bg-white"
           placeholder="A new responsibility"
@@ -75,7 +75,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
           type="number"
           min="0"
           defaultValue="1"
-          className="w-20 text-center bg-neutral-100 p-4"
+          className="w-20 text-center bg-neutral-100 p-4 rounded-lg"
         />
 
         <button

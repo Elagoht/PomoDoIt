@@ -18,9 +18,10 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
   return <label
     htmlFor={`todo-${index}`}
     className={classNames({
-      "bg-white text-neutral-800 flex items-center gap-2 px-4 border rounded cursor-pointer m-1": true,
+      "transition-colors bg-white text-neutral-800 flex items-center gap-2 px-4 border rounded-lg cursor-pointer m-1": true,
       "border-red-500": item.todo === "",
-      "line-through": item.checked
+      "line-through": item.checked,
+      "!bg-indigo-300 border-indigo-600": item.session === 0 && !item.checked
     })}
   >
     <input
@@ -35,7 +36,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
 
     <input
       className={classNames({
-        "flex-1 line-clamp-1 h-12 ml-2 outline-none bg-white": true,
+        "flex-1 line-clamp-1 h-12 ml-2 outline-none bg-transparent": true,
         "line-through": item.checked
       })}
       defaultValue={item.todo}
@@ -46,7 +47,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
       !item.checked &&
       <>
         <label
-          className="h-14 w-10 bg-neutral-50 hover:bg-neutral-200 transition-colors -mr-2 flex justify-center items-center"
+          className="h-10 w-10 bg-neutral-50 hover:bg-neutral-200 transition-colors flex justify-center items-center rounded-full"
         >
           <input
             type="checkbox"
@@ -62,7 +63,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
           }
         </label>
         <label
-          className="h-14 w-10 bg-neutral-50 hover:bg-neutral-200 transition-colors -mr-2 flex justify-center items-center"
+          className="h-10 w-10 bg-neutral-50 hover:bg-neutral-200 transition-colors flex justify-center items-center rounded-full"
         >
           <input
             type="checkbox"
@@ -86,16 +87,16 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
       }
       type="number"
       min="0"
-      className="w-20 text-center bg-neutral-100 p-4"
+      className="w-12 h-10 text-center bg-neutral-100 rounded-lg"
     />
     <AnimatePresence mode="wait">
       {
         deletion &&
         <motion.button
-          initial={{ marginRight: "-3.5rem", opacity: 0 }}
+          initial={{ marginRight: "-4rem", opacity: 0 }}
           animate={{ marginRight: 0, opacity: 1 }}
-          exit={{ marginRight: "-3.5rem", opacity: 0 }}
-          className="bg-yellow-200 hover:bg-yellow-300 -ml-2 p-4 text-yellow-600 hover:text-yellow-800 transition-colors rounded-lg"
+          exit={{ marginRight: "-4rem", opacity: 0 }}
+          className="z-0 bg-yellow-200 hover:bg-yellow-300 p-4 text-yellow-600 hover:text-yellow-800 transition-colors rounded-lg"
           onClick={() => {
             RemoveTodo([categoryName, item.id]);
             (document.querySelector("#category") as HTMLSelectElement).value = "0"
@@ -108,9 +109,9 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
     <button
       onClick={() => setDeletion(prev => !prev)}
       className={classNames({
-        "-mx-2 -mr-4 p-4 text-red-600 hover:text-red-800 transition-colors rounded-lg": true,
-        "bg-orange-100 hover:bg-orange-200": !deletion,
-        "bg-orange-200 hover:bg-orange-300": deletion,
+        "z-10 -mr-4 p-4 text-red-600 hover:text-red-800 transition-colors rounded-lg": true,
+        "bg-red-100 hover:bg-red-200": !deletion,
+        "bg-red-200 hover:bg-red-300": deletion,
       })}
     >
       <X />
