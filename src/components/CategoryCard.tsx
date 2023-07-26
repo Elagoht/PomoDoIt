@@ -20,7 +20,7 @@ const CategoryCard: FC = () => {
   const categories = Object.keys(todosState)
 
   const handleRenameWithTick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    const text = (((event.currentTarget.previousSibling as HTMLButtonElement).previousSibling as HTMLInputElement).previousSibling as HTMLInputElement).value.trim()
+    const text = (document.querySelector("#rename-input") as HTMLInputElement).value.trim()
     if (text === "") {
       console.warn("Category name cannot be leave blank")
     } else if (categories.includes(text)) {
@@ -140,6 +140,7 @@ const CategoryCard: FC = () => {
               }
             </AnimatePresence>
             <input
+              id="rename-input"
               className="flex-1 p-2 rounded-lg text-neutral-800"
               onFocus={() => setDeleting(false)}
               onKeyDown={(event) => handleRenameWithEnter(event)}
