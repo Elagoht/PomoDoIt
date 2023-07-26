@@ -4,13 +4,13 @@ import { RootState } from "../contexts"
 import { useSelector } from "react-redux"
 import { Check, PenLine, Plus, Trash2, X } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
-import { RemoveCategory, RenameCategory } from "../utils/states"
+import { RemoveCategory, RenameCategory, SetCategory } from "../utils/states"
 import AddNewCategory from "./AddNewCategory"
 import classNames from "classnames"
 
 const CategoryCard: FC = () => {
 
-  const [currentCategory, setCurrentCategory] = useState<number>(0)
+  const category = useSelector((state: RootState) => state.Category.name)
   const [rename, setRename] = useState<boolean>(false)
   const [deleting, setDeleting] = useState<boolean>(false)
   const [addCategory, setAddCategory] = useState<boolean>(false)
@@ -19,19 +19,19 @@ const CategoryCard: FC = () => {
   const todos = Object.entries(todosState)
   const categories = Object.keys(todosState)
 
-  const handleRenameWithTick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleRenameWithTick = (): void => {
     const text = (document.querySelector("#rename-input") as HTMLInputElement).value.trim()
     if (text === "") {
       console.warn("Category name cannot be leave blank")
     } else if (categories.includes(text)) {
       console.warn("This category is already exists")
     } else {
-      RenameCategory([todos[currentCategory][0], text])
+      RenameCategory([todos[category][0], text])
       setRename(false)
     }
   }
 
-  const handleRenameWithEnter = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleRenameWithEnter = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if (event.key === "Escape") setRename(false)
     if (event.key !== "Enter") return
 
@@ -41,21 +41,21 @@ const CategoryCard: FC = () => {
     } else if (categories.includes(text)) {
       console.warn("This category is already exists")
     } else {
-      RenameCategory([todos[currentCategory][0], text])
+      RenameCategory([todos[category][0], text])
       setRename(false)
     }
   }
 
   return categories.length === 0
-    ? <AddNewCategory setRename={setRename} setAddCategory={setAddCategory} setCurrentCategory={setCurrentCategory} />
+    ? <AddNewCategory setRename={setRename} setAddCategory={setAddCategory} />
     : <div className="flex flex-col">
       <div className="flex gap-2 justify-center items-center">
         <label htmlFor="category">Category</label>
         <select
           className="p-2 text-neutral-800 rounded-lg flex-1"
-          value={currentCategory}
+          value={category}
           onChange={(event) => {
-            setCurrentCategory(parseInt(event.currentTarget.value))
+            SetCategory(parseInt(event.currentTarget.value))
             setRename(false)
             setDeleting(false)
           }}
@@ -129,8 +129,8 @@ const CategoryCard: FC = () => {
                   <button
                     className="p-2 bg-green-500 hover:bg-green-600 transition-colors rounded-lg"
                     onClick={() => {
-                      RemoveCategory(categories[currentCategory])
-                      setCurrentCategory(prev => prev > 0 ? prev - 1 : 0)
+                      RemoveCategory(categories[category])
+                      SetCategory(category > 0 ? category - 1 : 0)
                       setDeleting(false)
                     }}
                   >
@@ -164,10 +164,10 @@ const CategoryCard: FC = () => {
       <AnimatePresence mode="wait">
         {
           addCategory &&
-          <AddNewCategory setRename={setRename} setAddCategory={setAddCategory} setCurrentCategory={setCurrentCategory} />
+          <AddNewCategory setRename={setRename} setAddCategory={setAddCategory} />
         }
       </AnimatePresence>
-      <TodoList category={todos[currentCategory]} />
+      <TodoList category={todos[category]} />
     </div >
 }
 

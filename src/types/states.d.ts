@@ -22,3 +22,7 @@ export interface IPomodoro {
   remaining: number
   playing: boolean
 }
+
+export interface ICategory {
+  name: number
+}

@@ -4,12 +4,15 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer"
 import { useSelector } from "react-redux"
 import { RootState } from "../contexts"
 import { ArrowRightCircle, PauseCircle, PlayCircle } from "lucide-react"
-import { ResetTimer, SetPlaying, SetRemaining } from "../utils/states"
+import { DecreaseSessions, ResetTimer, SetPlaying, SetRemaining } from "../utils/states"
 import bell from "../assets/sounds/bell.ogg"
 
 const Clock: FC = () => {
 
   const pomodoro = useSelector((state: RootState) => state.Pomodoro)
+  const categories = Object.keys(useSelector((state: RootState) => state.Todos.todos))
+  const category = useSelector((state: RootState) => state.Category.name)
+  const currentCategoryName = categories[category]
 
   const convertTime = (seconds: number): string => {
     const hours = Math.floor(seconds / 3600)
@@ -23,7 +26,6 @@ const Clock: FC = () => {
 
     return timeString
   }
-
 
   return <div
     className="flex items-center justify-center h-96 flex-col gap-8"
@@ -77,7 +79,9 @@ const Clock: FC = () => {
           : <PlayCircle strokeWidth={1.5} size={96} className="hover:text-neutral-600 active:text-neutral-400 transition-colors" />
         }
       </button>
-      <button>
+      <button
+        onClick={() => DecreaseSessions(currentCategoryName)}
+      >
         <ArrowRightCircle strokeWidth={2} size={48} className="hover:text-neutral-600 active:text-neutral-400 transition-colors" />
       </button>
     </div>

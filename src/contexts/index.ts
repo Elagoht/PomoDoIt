@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit"
 import Todos from "./todos"
 import Pomodoro from "./pomodoro"
+import Category from "./category"
 
 const store = configureStore({
   reducer: {
     Pomodoro,
-    Todos
+    Todos,
+    Category
   }
 })
 

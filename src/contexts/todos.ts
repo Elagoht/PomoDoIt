@@ -55,15 +55,13 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
     renameCategory: (state: IToDos, action: PayloadAction<[string, string]>) => {
       const [oldKey, newKey] = action.payload
       if (typeof state.todos !== 'object' || state.todos === null) {
-        throw new Error('Invalid JSON object');
+        throw new Error('Invalid JSON object')
       }
-
       if (!state.todos[oldKey]) {
-        throw new Error('The provided key does not exist in the JSON');
+        throw new Error('The provided key does not exist in the JSON')
       }
-
       if (oldKey === newKey) {
-        throw new Error('The old and new keys cannot be the same');
+        throw new Error('The old and new keys cannot be the same')
       }
       let updatedJson = {}
 
@@ -133,6 +131,12 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
         if (state.todos[category].find(todo => todo.id === id)) {
           (state.todos[category].find(todo => todo.id === id) as IToDo).session = remaining
         }
+    },
+    decreaseSessions: (state: IToDos, action: PayloadAction<string>) => {
+      state.todos[action.payload].forEach(item => {
+        if (item.active && item.session > 0)
+          item.session--
+      })
     }
   }
 })
@@ -141,6 +145,6 @@ export const {
   addCategory, removeCategory, renameCategory,
   addTodo, removeTodo, setTodo,
   setTodoChecked, setTodoActive, setTodoPinned,
-  setTodoSessions, setTodoRemainingSessions
+  setTodoSessions, setTodoRemainingSessions, decreaseSessions
 } = Todos.actions
 export default Todos.reducer

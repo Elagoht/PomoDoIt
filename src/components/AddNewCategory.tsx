@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { AddCategory } from '../utils/states'
+import { AddCategory, SetCategory } from '../utils/states'
 import { motion } from 'framer-motion'
 import { useSelector } from 'react-redux'
 import { RootState } from '../contexts'
@@ -8,10 +8,9 @@ import { Plus } from 'lucide-react'
 interface AddNewCategoryProps {
   setRename: (value: React.SetStateAction<boolean>) => void
   setAddCategory: (value: React.SetStateAction<boolean>) => void
-  setCurrentCategory: (value: React.SetStateAction<number>) => void
 }
 
-const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory, setCurrentCategory }) => {
+const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) => {
 
   const categoryCount = Object.keys(
     useSelector((state: RootState) => state.Todos.todos)
@@ -32,7 +31,7 @@ const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory, se
           AddCategory(event.currentTarget.value)
           setRename(false)
           setAddCategory(false)
-          setCurrentCategory(categoryCount)
+          SetCategory(categoryCount)
         }
       }}
     />
@@ -45,7 +44,7 @@ const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory, se
           AddCategory(text)
           setRename(false)
           setAddCategory(false)
-          setCurrentCategory(categoryCount)
+          SetCategory(categoryCount)
         }
       }}
     >

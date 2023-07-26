@@ -1,6 +1,7 @@
 import store from "../contexts"
+import { setCategory } from "../contexts/category"
 import { resetTimer, setDuration, setPlaying, setRemaining, setState } from "../contexts/pomodoro"
-import { addCategory, addTodo, removeCategory, removeTodo, renameCategory, setTodo, setTodoActive, setTodoChecked, setTodoPinned, setTodoSessions } from "../contexts/todos"
+import { addCategory, addTodo, decreaseSessions, removeCategory, removeTodo, renameCategory, setTodo, setTodoActive, setTodoChecked, setTodoPinned, setTodoSessions } from "../contexts/todos"
 import { IToDo } from "../types/states"
 
 // Save to Local Storage
@@ -12,6 +13,11 @@ const saveTodos = () => {
 const savePomodoro = () => {
   localStorage.setItem("pomodoro",
     JSON.stringify(store.getState().Pomodoro)
+  )
+}
+const saveCategory = () => {
+  localStorage.setItem("category",
+    JSON.stringify(store.getState().Category)
   )
 }
 
@@ -58,6 +64,9 @@ export const SetTodoSessions = (payload: [string, string, number]): void => {
   store.dispatch(setTodoSessions(payload))
   saveTodos()
 }
+export const DecreaseSessions = (payload: string): void => {
+  store.dispatch(decreaseSessions(payload))
+}
 
 // Pomodoro hooks
 export const SetPlaying = (payload: boolean): void => {
@@ -78,4 +87,10 @@ export const SetRemaining = (payload: number): void => {
 export const ResetTimer = (): void => {
   store.dispatch(resetTimer(null))
   savePomodoro()
+}
+
+// Category hooks
+export const SetCategory = (payload: number): void => {
+  store.dispatch(setCategory(payload))
+  saveCategory()
 }
