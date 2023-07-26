@@ -141,6 +141,8 @@ const CategoryCard: FC = () => {
             </AnimatePresence>
             <input
               id="rename-input"
+              placeholder="Rename your category"
+              defaultValue={categories[category]}
               className="flex-1 p-2 rounded-lg text-neutral-800"
               onFocus={() => setDeleting(false)}
               onKeyDown={(event) => handleRenameWithEnter(event)}
