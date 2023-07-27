@@ -10,7 +10,6 @@ const StateSelector: FC = () => {
 
   return <div className="flex items-center justify-center">
     <button
-      onClick={() => SetState(PomodoroState.work)}
       className={classNames({
         "bg-white px-4 py-2 rounded-l-lg border-2 border-orange-800 w-32": true,
         "!bg-orange-500 text-neutral-200": pomodoro.state === PomodoroState.work
@@ -19,7 +18,6 @@ const StateSelector: FC = () => {
       work!
     </button>
     <button
-      onClick={() => SetState(PomodoroState["short break"])}
       className={classNames({
         "bg-white px-4 py-2 border-y-2 border-orange-800 w-32": true,
         "!bg-orange-500 text-neutral-200": pomodoro.state === PomodoroState["short break"]
@@ -28,7 +26,6 @@ const StateSelector: FC = () => {
       short break
     </button>
     <button
-      onClick={() => SetState(PomodoroState["long break"])}
       className={classNames({
         "bg-white px-4 py-2 rounded-r-lg border-2 border-orange-800 w-32": true,
         "!bg-orange-500 text-neutral-200": pomodoro.state === PomodoroState["long break"]

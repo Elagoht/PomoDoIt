@@ -1,6 +1,6 @@
 import store from "../contexts"
 import { setCategory } from "../contexts/category"
-import { resetTimer, setDuration, setPlaying, setRemaining, setState } from "../contexts/pomodoro"
+import { setDuration, setPlaying, setRemaining, setState } from "../contexts/pomodoro"
 import { addCategory, addTodo, decreaseSessions, removeCategory, removeTodo, renameCategory, setTodo, setTodoActive, setTodoChecked, setTodoPinned, setTodoSessions } from "../contexts/todos"
 import { IToDo } from "../types/states"
 
@@ -66,6 +66,7 @@ export const SetTodoSessions = (payload: [string, string, number]): void => {
 }
 export const DecreaseSessions = (payload: string): void => {
   store.dispatch(decreaseSessions(payload))
+  saveTodos()
 }
 
 // Pomodoro hooks
@@ -78,14 +79,11 @@ export const SetState = (payload: number): void => {
 }
 export const SetDuration = (payload: number): void => {
   store.dispatch(setDuration(payload))
+  store.dispatch(setRemaining(payload))
   savePomodoro()
 }
 export const SetRemaining = (payload: number): void => {
   store.dispatch(setRemaining(payload))
-  savePomodoro()
-}
-export const ResetTimer = (): void => {
-  store.dispatch(resetTimer(null))
   savePomodoro()
 }
 

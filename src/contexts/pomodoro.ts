@@ -21,19 +21,28 @@ const Pomodoro = createSlice<IPomodoro, SliceCaseReducers<IPomodoro>>({
     setPlaying: (state: IPomodoro, action: PayloadAction<boolean>) => {
       state.playing = action.payload
     },
-    setState: (state: IPomodoro, action: PayloadAction<PomodoroState>) => {
-      state.state = action.payload
-    },
     setDuration: (state: IPomodoro, action: PayloadAction<number>) => {
       state.duration = action.payload
     },
     setRemaining: (state: IPomodoro, action: PayloadAction<number>) => {
       state.remaining = action.payload
     },
-    resetTimer: (state: IPomodoro) => {
-      state.state = PomodoroState.work
-      state.duration = 25 * 60
-      state.remaining = 25 * 60
+    setState: (state: IPomodoro, action: PayloadAction<PomodoroState>) => {
+      switch (action.payload) {
+        case PomodoroState["short break"]:
+          state.duration = 5 * 60
+          state.remaining = 5 * 60
+          break
+        case PomodoroState["long break"]:
+          state.duration = 15 * 60
+          state.remaining = 15 * 60
+          break
+        default:
+          state.duration = 25 * 60
+          state.remaining = 25 * 60
+          break
+      }
+      state.state = action.payload
     }
   }
 })

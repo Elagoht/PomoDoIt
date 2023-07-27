@@ -1,11 +1,11 @@
 import CategoryCard from "./components/CategoryCard"
-import Clock from "./components/Clock"
+import ClockSection from "./components/ClockSection"
 import { FC } from "react"
 import StateSelector from "./components/StateSelector"
 
 const App: FC = () => {
   return <>
-    <Clock />
+    <ClockSection />
     <StateSelector />
     <div
       id="todo-container"
