@@ -31,7 +31,7 @@ const Clock: FC<ClockProps> = ({ currentState, nextState, callback }) => {
   }
 
   return <CountdownCircleTimer
-    isPlaying={pomodoro.playing && pomodoro.state === currentState}
+    isPlaying={pomodoro.playing}
     size={200}
     duration={pomodoro.duration}
     initialRemainingTime={pomodoro.remaining}

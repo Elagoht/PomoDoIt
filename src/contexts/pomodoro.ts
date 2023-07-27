@@ -9,6 +9,7 @@ const initialState: IPomodoro = localStorage.getItem("pomodoro")
   }
   : {
     state: PomodoroState.work,
+    toLong: 4,
     duration: 25 * 60,
     remaining: 25 * 60,
     playing: false
@@ -43,9 +44,15 @@ const Pomodoro = createSlice<IPomodoro, SliceCaseReducers<IPomodoro>>({
           break
       }
       state.state = action.payload
+    },
+    setToLong: (state: IPomodoro, action: PayloadAction<number>) => {
+      state.toLong = action.payload
     }
   }
 })
 
-export const { setPlaying, setState, setDuration, setRemaining, resetTimer } = Pomodoro.actions
+export const {
+  setPlaying, setState, setDuration,
+  setRemaining, resetTimer, setToLong
+} = Pomodoro.actions
 export default Pomodoro.reducer

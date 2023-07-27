@@ -2,7 +2,7 @@ import { FC } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "../contexts"
 import { ArrowRightCircle, PauseCircle, PlayCircle } from "lucide-react"
-import { DecreaseSessions, SetPlaying } from "../utils/states"
+import { DecreaseSessions, SetPlaying, SetToLong } from "../utils/states"
 import Clock from "./Clock"
 import { PomodoroState } from "../utils/enums"
 
@@ -18,13 +18,31 @@ const ClockSection: FC = () => {
   >
     {
       pomodoro.state === PomodoroState["work"] &&
-      <Clock currentState={PomodoroState["work"]} nextState={PomodoroState["short break"]} callback={() => DecreaseSessions(currentCategoryName)} />
+      <Clock currentState={PomodoroState["work"]}
+        callback={() => {
+          DecreaseSessions(currentCategoryName)
+          SetToLong(pomodoro.toLong === 0
+            ? 3
+            : pomodoro.toLong - 1
+          )
+        }}
+        nextState={
+          pomodoro.toLong > 0
+            ? PomodoroState["short break"]
+            : PomodoroState["long break"]
+        }
+      />
     }{
       pomodoro.state === PomodoroState["short break"] &&
-      <Clock currentState={PomodoroState["short break"]} nextState={PomodoroState["work"]} />
+      <Clock currentState={PomodoroState["short break"]}
+        nextState={PomodoroState["work"]}
+      />
     }{
       pomodoro.state === PomodoroState["long break"] &&
-      <Clock currentState={PomodoroState["short break"]} nextState={PomodoroState["work"]} />
+      <Clock
+        currentState={PomodoroState["long break"]}
+        nextState={PomodoroState["work"]}
+      />
     }
     <div className="flex items-center justify-center gap-4">
       <div className="w-12"></div>

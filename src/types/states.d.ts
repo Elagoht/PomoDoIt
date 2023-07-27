@@ -21,6 +21,7 @@ export interface IPomodoro {
   duration: number
   remaining: number
   playing: boolean
+  toLong: number
 }
 
 export interface ICategory {
