@@ -2,9 +2,9 @@ import { FC, useState } from "react"
 import TodoList from "./TodoList"
 import { RootState } from "../contexts"
 import { useSelector } from "react-redux"
-import { Check, PenLine, Plus, Trash2, X } from "lucide-react"
+import { Check, CheckCheck, PenLine, Plus, Trash2, X } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
-import { RemoveCategory, RenameCategory, SetCategory } from "../utils/states"
+import { ClearCheckedTodos, RemoveCategory, RenameCategory, SetCategory } from "../utils/states"
 import AddNewCategory from "./AddNewCategory"
 import classNames from "classnames"
 
@@ -14,6 +14,7 @@ const CategoryCard: FC = () => {
   const [rename, setRename] = useState<boolean>(false)
   const [deleting, setDeleting] = useState<boolean>(false)
   const [addCategory, setAddCategory] = useState<boolean>(false)
+  const [clearing, setClearing] = useState<boolean>(false)
 
   const todosState = useSelector((state: RootState) => state.Todos.todos)
   const todos = Object.entries(todosState)
@@ -169,7 +170,38 @@ const CategoryCard: FC = () => {
           <AddNewCategory setRename={setRename} setAddCategory={setAddCategory} />
         }
       </AnimatePresence>
+
       <TodoList category={todos[category]} />
+
+      <div className="flex gap-2">
+        <button
+          className={classNames({
+            "flex gap-2 px-4 py-2 border-2 rounded-lg w-fit transition-colors": true,
+            "bg-gray-500 border-gray-700": clearing,
+            "border-neutral-100": !clearing
+          })}
+          onClick={() => setClearing(prev => !prev)}
+        >
+          <CheckCheck /> Clear Checked Ones
+        </button>
+        <AnimatePresence mode="wait">
+          {clearing &&
+            <motion.button
+              initial={{ width: 0, padding: 0, opacity: 0 }}
+              animate={{ width: "2.5rem", padding: ".5rem", opacity: 1 }}
+              exit={{ width: 0, padding: 0, opacity: 0 }}
+              className=" bg-green-500 hover:bg-green-600 transition-colors rounded-lg overflow-hidden"
+              onClick={() => {
+                ClearCheckedTodos(categories[category])
+                setClearing(false)
+              }}
+            >
+              <Check />
+            </motion.button>
+          }
+        </AnimatePresence>
+      </div>
+
     </div >
 }
 

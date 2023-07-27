@@ -21,7 +21,8 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
       "transition-colors bg-white text-neutral-800 flex items-center gap-2 px-4 border rounded-lg cursor-pointer m-1": true,
       "border-red-500": item.todo === "",
       "line-through": item.checked,
-      "!bg-indigo-300 border-indigo-600": item.session === 0 && !item.checked
+      "!bg-indigo-300 border-indigo-600": item.session === 0 && !item.checked,
+      "!bg-green-300": item.active
     })}
   >
     <input

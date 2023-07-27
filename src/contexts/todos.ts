@@ -134,6 +134,10 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
         if (item.active && item.session > 0)
           item.session--
       })
+    },
+    clearCheckedTodos: (state: IToDos, action: PayloadAction<string>) => {
+      state.todos[action.payload] = state.todos[action.payload]
+        .filter(item => !item.checked)
     }
   }
 })
@@ -142,6 +146,7 @@ export const {
   addCategory, removeCategory, renameCategory,
   addTodo, removeTodo, setTodo,
   setTodoChecked, setTodoActive, setTodoPinned,
-  setTodoSessions, setTodoRemainingSessions, decreaseSessions
+  setTodoSessions, setTodoRemainingSessions, decreaseSessions,
+  clearCheckedTodos
 } = Todos.actions
 export default Todos.reducer
