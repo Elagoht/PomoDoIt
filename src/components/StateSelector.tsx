@@ -9,30 +9,30 @@ const StateSelector: FC = () => {
   const pomodoro = useSelector((state: RootState) => state.Pomodoro)
 
   return <div className="flex items-center justify-center w-full">
-    <button
+    <div
       className={classNames({
-        "p-2 flex-1 whitespace-nowrap dark:text-red-100": true,
+        "text-center p-2 flex-1 whitespace-nowrap dark:text-red-100": true,
         "bg-neutral-900 bg-opacity-20 rounded-lg text-neutral-100": pomodoro.state === PomodoroState.work
       })}
     >
       work!
-    </button>
-    <button
+    </div>
+    <div
       className={classNames({
-        "p-2 flex-1 whitespace-nowrap dark:text-red-100": true,
+        "text-center p-2 flex-1 whitespace-nowrap dark:text-red-100": true,
         "bg-neutral-900 bg-opacity-20 rounded-lg text-neutral-100": pomodoro.state === PomodoroState["short break"]
       })}
     >
       short break
-    </button>
-    <button
+    </div>
+    <div
       className={classNames({
-        "p-2 flex-1 whitespace-nowrap dark:text-red-100": true,
+        "text-center p-2 flex-1 whitespace-nowrap dark:text-red-100": true,
         "bg-neutral-900 bg-opacity-20 rounded-lg text-neutral-100": pomodoro.state === PomodoroState["long break"]
       })}
     >
       long break
-    </button>
+    </div>
   </div>
 }
 

@@ -52,7 +52,7 @@ const CategoryCard: FC = () => {
     : <div className="flex flex-col">
       <div className="flex gap-2 justify-center items-center">
         <select
-          className="p-2 bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 border-2 border-neutral-900 dark:border-neutral-100 rounded-lg flex-1"
+          className="h-10 px-2 bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 border-2 border-neutral-900 dark:border-neutral-100 rounded-lg flex-1"
           value={category}
           onChange={(event) => {
             SetCategory(parseInt(event.currentTarget.value))
@@ -129,7 +129,7 @@ const CategoryCard: FC = () => {
                   initial={{ width: "5.5rem" }}
                   animate={{ width: "2.5rem" }}
                   exit={{ width: "5.5rem" }}
-                  className="w-10 shrink-0 grid place-items-center overflow-hidden bg-red-600 hover:bg-red-700 dark:bg-red-800 dark:hover:bg-red-900 transition-colors rounded-lg"
+                  className="w-10 shrink-0 grid place-items-center overflow-hidden bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 transition-colors rounded-lg"
                   onClick={() => setDeleting(true)}
                 >
                   <Trash2 />
@@ -163,7 +163,7 @@ const CategoryCard: FC = () => {
               id="rename-input"
               placeholder="Rename your category"
               defaultValue={categories[category]}
-              className="flex-1 px-2 rounded-lg text-neutral-800 min-w-0"
+              className="flex-1 px-2 rounded-lg bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 min-w-0"
               onFocus={() => setDeleting(false)}
               onKeyDown={(event) => handleRenameWithEnter(event)}
             >
@@ -219,6 +219,8 @@ const CategoryCard: FC = () => {
           </motion.div>
         }
       </AnimatePresence>
+
+      <hr className="border-red-400 dark:border-red-700 border m-4" />
 
       <TodoList category={todos[category]} />
 

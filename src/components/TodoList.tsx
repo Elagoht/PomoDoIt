@@ -14,7 +14,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
   const [categoryName, todos] = category
   const [newSessionCount, setNewSessionCount] = useState<number>(1)
-  const [animationParent] = useAutoAnimate()
+  const [animationParent] = useAutoAnimate<Element>()
 
   const handleNewToDo = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
     const newToDoSessions: HTMLInputElement = event.currentTarget.previousSibling as HTMLInputElement
@@ -60,35 +60,35 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
   return <div>
 
-    <label className="bg-white text-neutral-800 flex items-center border-2 border-neutral-500 rounded-lg cursor-pointer my-1">
+    <label className="bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 flex items-center border-2 border-neutral-900 dark:border-neutral-100 rounded-lg cursor-pointer my-1">
 
       <input
         placeholder="Add a new responsibility"
-        className="flex-1 line-clamp-1 text-ellipsis h-14 outline-none rounded-l-lg px-4"
+        className="flex-1 line-clamp-1 text-ellipsis bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 h-14 outline-none rounded-l-lg px-4"
         onKeyDown={(event) => handleNewToDoWithEnter(event)}
       />
       {/* Session */}
-      <div className="flex">
+      <div className="flex text-neutral-900 dark:text-neutral-100">
         <input
           value={newSessionCount}
           onChange={(event) => setNewSessionCount(parseInt(event.currentTarget.value))}
           type="number"
-          min="0"
-          className="w-10 h-14 text-center bg-blue-100 text-neutral-900"
+          min="1"
+          className="w-10 h-14 text-center bg-sky-100 dark:bg-sky-700"
         />
         <div className="flex flex-col">
           <button
-            className="h-7 bg-blue-200"
+            className="h-7 bg-sky-200 dark:bg-sky-800"
             onClick={() => setNewSessionCount(prev => prev + 1)}
           >
             <ChevronUp />
           </button>
           <button
-            className="h-7 bg-blue-300"
+            className="h-7 bg-sky-300 dark:bg-sky-900 "
             onClick={() => setNewSessionCount(prev =>
-              prev > 0
+              prev > 1
                 ? prev - 1
-                : 0
+                : 1
             )}
           >
             <ChevronDown />
@@ -98,17 +98,17 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
       {/* Add button */}
       <button
-        className="grid place-items-center w-14 h-14 bg-green-100 hover:bg-green-200 text-green-600 hover:text-green-800 transition-colors rounded-r-lg"
+        className="grid place-items-center w-14 h-14 bg-green-100 hover:bg-green-200 text-green-600 hover:text-green-800 dark:bg-green-700 dark:hover:bg-green-800 dark:text-green-100 dark:hover:text-green-200 transition-colors rounded-r"
         onClick={(event) => handleNewToDo(event)}
       >
         <Plus />
       </button>
-
     </label>
 
-    <hr className="border-red-400 dark:border-red-700 border m-4" />
-
-    <div ref={animationParent}>
+    <div
+      ref={animationParent}
+      className="my-8"
+    >
 
       {structuredClone(todos)
         .sort((a, b) =>

@@ -18,11 +18,11 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
   return <label
     htmlFor={`todo-${index}`}
     className={classNames({
-      "transition-colors bg-white text-neutral-800 flex items-center border-2 border-neutral-500 rounded-lg cursor-pointer my-1": true,
+      "transition-colors bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 flex items-center border-2 border-neutral-900 dark:border-neutral-100 rounded-lg cursor-pointer my-1": true,
+      "!border-blue-500": item.todo !== "" && item.session === 0 && !item.checked,
       "!border-red-500": item.todo === "",
-      "!border-sky-500": item.session === 0 && !item.checked,
-      "!bg-lime-200": item.active,
-      "!bg-orange-200": item.checked
+      "!bg-lime-200 dark:!bg-lime-700 dark:text-neutral-100": item.active,
+      "!bg-neutral-400 dark:!bg-neutral-700 opacity-50 dark:text-neutral-100": item.checked
     })}
   >
     <input
@@ -84,7 +84,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
       </>
     }
     {/* Sessions */}
-    <div className="flex">
+    <div className="flex text-neutral-900 dark:text-neutral-100">
       <input
         value={item.session}
         onChange={(event) =>
@@ -92,11 +92,11 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
         }
         type="number"
         min="0"
-        className="h-14 w-10 text-center bg-blue-100 text-neutral-900"
+        className="h-14 w-10 text-center bg-sky-100 dark:bg-sky-700"
       />
       <div className="flex flex-col">
         <button
-          className="h-7 bg-blue-200"
+          className="h-7 bg-sky-200 dark:bg-sky-800"
           onClick={() => SetTodoSessions([
             categoryName,
             item.id,
@@ -106,7 +106,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
           <ChevronUp />
         </button>
         <button
-          className="h-7 bg-blue-300"
+          className="h-7 bg-sky-300 dark:bg-sky-900"
           onClick={() => SetTodoSessions([
             categoryName,
             item.id,
@@ -127,7 +127,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
           initial={{ marginRight: "-3.5rem", opacity: 0 }}
           animate={{ marginRight: 0, opacity: 1 }}
           exit={{ marginRight: "-3.5rem", opacity: 0 }}
-          className="z-0 w-14 h-14 grid place-items-center bg-yellow-200 hover:bg-yellow-300 text-yellow-600 hover:text-yellow-800 transition-colors"
+          className="z-0 w-14 h-14 grid place-items-center bg-yellow-200 hover:bg-yellow-300 dark:bg-orange-500 dark:hover:bg-orange-600 text-yellow-600 hover:text-yellow-800 dark:text-orange-100 dark:hover:text-orange-200 transition-colors"
           onClick={() => {
             RemoveTodo([categoryName, item.id]);
             (document.querySelector("#category") as HTMLSelectElement).value = "0"
@@ -140,9 +140,9 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
     <button
       onClick={() => setDeletion(prev => !prev)}
       className={classNames({
-        "z-10 w-14 h-14 grid place-items-center text-red-600 hover:text-red-800 transition-colors rounded-r-lg": true,
-        "bg-red-100 hover:bg-red-200": !deletion,
-        "bg-red-200 hover:bg-red-300": deletion,
+        "z-10 w-14 h-14 grid place-items-center text-red-600 hover:text-red-800 dark:text-red-100 dark:hover:text-red-200 transition-colors rounded-r": true,
+        "bg-red-100 hover:bg-red-200 dark:bg-red-700 dark:hover:bg-red-800": !deletion,
+        "bg-red-200 hover:bg-red-300 dark:bg-red-800 dark:hover:bg-red-900": deletion,
       })}
     >
       <X />

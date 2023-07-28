@@ -15,10 +15,8 @@ const ClockSection: FC = () => {
   const currentCategoryName = categories[category]
 
   return <div
-    className="rounded-3xl max-w-2xl p-2 mx-auto flex items-center flex-col justify-center gap-4 mb-4"
+    className="rounded-3xl max-w-2xl p-2 mx-auto flex items-center flex-col justify-center gap-4"
   >
-
-    <StateSelector />
     {
       pomodoro.state === PomodoroState["work"] &&
       <Clock
@@ -67,6 +65,7 @@ const ClockSection: FC = () => {
         <ChevronRightCircle strokeWidth={2} size={64} className="text-neutral-100 hover:text-neutral-300 active:text-neutral-400 transition-colors" />
       </button>
     </div>
+    <StateSelector />
   </div>
 }
 
