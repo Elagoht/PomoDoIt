@@ -1,10 +1,11 @@
 import { FC } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "../contexts"
-import { PauseCircle, PlayCircle } from "lucide-react"
+import { ChevronRightCircle, PauseCircle, PlayCircle } from "lucide-react"
 import { DecreaseSessions, SetPlaying, SetToLong } from "../utils/states"
 import Clock from "./Clock"
 import { PomodoroState } from "../utils/enums"
+import StateSelector from "./StateSelector"
 
 const ClockSection: FC = () => {
 
@@ -14,11 +15,13 @@ const ClockSection: FC = () => {
   const currentCategoryName = categories[category]
 
   return <div
-    className="flex items-center justify-center flex-col gap-2 mb-4"
+    className="rounded-3xl max-w-2xl p-2 mx-auto flex items-center flex-col justify-center gap-4 mb-4"
   >
+
+    <StateSelector />
     {
       pomodoro.state === PomodoroState["work"] &&
-      <Clock currentState={PomodoroState["work"]}
+      <Clock
         callback={() => {
           DecreaseSessions(currentCategoryName)
           SetToLong(pomodoro.toLong === 0
@@ -34,28 +37,37 @@ const ClockSection: FC = () => {
       />
     }{
       pomodoro.state === PomodoroState["short break"] &&
-      <Clock currentState={PomodoroState["short break"]}
+      <Clock
         nextState={PomodoroState["work"]}
       />
     }{
       pomodoro.state === PomodoroState["long break"] &&
       <Clock
-        currentState={PomodoroState["long break"]}
         nextState={PomodoroState["work"]}
       />
     }
-    <div className="w-12"></div>
-    <button
-      onClick={() => {
-        SetPlaying(!pomodoro.playing)
-      }}
-    >
-      {pomodoro.playing
-        ? <PauseCircle strokeWidth={1.5} size={96} className="hover:text-neutral-600 active:text-neutral-400 transition-colors" />
-        : <PlayCircle strokeWidth={1.5} size={96} className="hover:text-neutral-600 active:text-neutral-400 transition-colors" />
-      }
-    </button>
-  </div >
+
+    {/* Controlls */}
+
+    <div className="flex items-center">
+      <div className="w-[64px]"></div>
+      <button
+        onClick={() => {
+          SetPlaying(!pomodoro.playing)
+        }}
+      >
+        {pomodoro.playing
+          ? <PauseCircle strokeWidth={1.5} size={96} className="text-neutral-100 hover:text-neutral-300 active:text-neutral-400 transition-colors" />
+          : <PlayCircle strokeWidth={1.5} size={96} className="text-neutral-100 hover:text-neutral-300 active:text-neutral-400 transition-colors" />
+        }
+      </button>
+      <button
+      // onClick={() => { }}
+      >
+        <ChevronRightCircle strokeWidth={2} size={64} className="text-neutral-100 hover:text-neutral-300 active:text-neutral-400 transition-colors" />
+      </button>
+    </div>
+  </div>
 }
 
 export default ClockSection

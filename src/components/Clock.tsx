@@ -8,12 +8,11 @@ import { useSelector } from "react-redux"
 import { RootState } from "../contexts"
 
 interface ClockProps {
-  currentState: PomodoroState
   nextState: PomodoroState
   callback?: CallableFunction
 }
 
-const Clock: FC<ClockProps> = ({ currentState, nextState, callback }) => {
+const Clock: FC<ClockProps> = ({ nextState, callback }) => {
 
   const pomodoro = useSelector((state: RootState) => state.Pomodoro)
 

@@ -3,32 +3,32 @@ import { FC } from "react"
 import { PomodoroState } from "../utils/enums"
 import { useSelector } from "react-redux"
 import { RootState } from "../contexts"
-import { SetState } from "../utils/states"
+
 const StateSelector: FC = () => {
 
   const pomodoro = useSelector((state: RootState) => state.Pomodoro)
 
-  return <div className="flex items-center justify-center">
+  return <div className="flex items-center justify-center w-full">
     <button
       className={classNames({
-        "bg-white px-4 py-2 rounded-l-lg border-2 border-orange-800 w-32": true,
-        "!bg-orange-500 text-neutral-200": pomodoro.state === PomodoroState.work
+        "p-2 flex-1 whitespace-nowrap dark:text-red-100": true,
+        "bg-neutral-900 bg-opacity-20 rounded-lg text-neutral-100": pomodoro.state === PomodoroState.work
       })}
     >
       work!
     </button>
     <button
       className={classNames({
-        "bg-white px-4 py-2 border-y-2 border-orange-800 w-32": true,
-        "!bg-orange-500 text-neutral-200": pomodoro.state === PomodoroState["short break"]
+        "p-2 flex-1 whitespace-nowrap dark:text-red-100": true,
+        "bg-neutral-900 bg-opacity-20 rounded-lg text-neutral-100": pomodoro.state === PomodoroState["short break"]
       })}
     >
       short break
     </button>
     <button
       className={classNames({
-        "bg-white px-4 py-2 rounded-r-lg border-2 border-orange-800 w-32": true,
-        "!bg-orange-500 text-neutral-200": pomodoro.state === PomodoroState["long break"]
+        "p-2 flex-1 whitespace-nowrap dark:text-red-100": true,
+        "bg-neutral-900 bg-opacity-20 rounded-lg text-neutral-100": pomodoro.state === PomodoroState["long break"]
       })}
     >
       long break

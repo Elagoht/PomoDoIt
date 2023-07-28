@@ -7,8 +7,11 @@
   * {
     font-family: 'Poppins', sans-serif;
   }
+  html {
+    @apply max-sm:text-sm
+  }
   body {
-    @apply p-4
+    @apply p-4 bg-red-500 dark:bg-red-900
   }
   .clock-timer {
     font-family: 'Fira Mono', monospace;

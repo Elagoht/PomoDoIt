@@ -122,13 +122,6 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
           (state.todos[category].find(todo => todo.id === id) as IToDo).session = session
         }
     },
-    setTodoRemainingSessions: (state: IToDos, action: PayloadAction<[string, string, number]>) => {
-      const [category, id, remaining] = action.payload
-      if (state.todos[category])
-        if (state.todos[category].find(todo => todo.id === id)) {
-          (state.todos[category].find(todo => todo.id === id) as IToDo).session = remaining
-        }
-    },
     decreaseSessions: (state: IToDos, action: PayloadAction<string>) => {
       state.todos[action.payload].forEach(item => {
         if (item.active && item.session > 0)
@@ -146,7 +139,6 @@ export const {
   addCategory, removeCategory, renameCategory,
   addTodo, removeTodo, setTodo,
   setTodoChecked, setTodoActive, setTodoPinned,
-  setTodoSessions, setTodoRemainingSessions, decreaseSessions,
-  clearCheckedTodos
+  setTodoSessions, decreaseSessions, clearCheckedTodos
 } = Todos.actions
 export default Todos.reducer
