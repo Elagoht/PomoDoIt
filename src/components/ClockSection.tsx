@@ -15,7 +15,7 @@ const ClockSection: FC = () => {
   const currentCategoryName = categories[category]
 
   return <div
-    className="rounded-3xl max-w-2xl p-2 mx-auto flex flex-col items-center justify-center gap-4"
+    className="rounded-3xl max-w-2xl mt-8 mx-auto flex flex-col items-center justify-center gap-16"
   >
     <div className="flex gap-1 max-sm:scale-75">
       {/* Clocks */}
