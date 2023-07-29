@@ -14,7 +14,7 @@ const initialState: IToDos = {
           pinned: false,
           session: 2,
           remaining: 2,
-          todo: "Create a pomodoro"
+          todo: "Create a category"
         },
         {
           id: nanoid(),
@@ -23,19 +23,8 @@ const initialState: IToDos = {
           pinned: false,
           session: 2,
           remaining: 2,
-          todo: "Complete a pomodoro"
+          todo: "Complete a task"
         },
-      ],
-      Todos: [
-        {
-          id: nanoid(),
-          active: false,
-          checked: false,
-          pinned: false,
-          session: 2,
-          remaining: 2,
-          todo: "Check a todo as completed"
-        }
       ]
     },
 }
