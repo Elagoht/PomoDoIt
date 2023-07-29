@@ -5,6 +5,8 @@ import { ChevronDown, ChevronUp, Plus } from "lucide-react"
 import { nanoid } from "nanoid"
 import TodoItem from "./TodoItem"
 import { useAutoAnimate } from "@formkit/auto-animate/react"
+import { AddAlert } from "../utils/alert"
+import { Alerts } from "../utils/enums"
 
 interface TodoListProps {
   category: [string, IToDo[]]
@@ -16,33 +18,14 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
   const [newSessionCount, setNewSessionCount] = useState<number>(1)
   const [animationParent] = useAutoAnimate<Element>()
 
-  const handleNewToDo = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
-    const newToDoSessions: HTMLInputElement = event.currentTarget.previousSibling as HTMLInputElement
-    const newToDo: HTMLInputElement = newToDoSessions.previousSibling as HTMLInputElement
-
-    if (newToDo.value === "") return
-
-    AddTodo([category[0], {
-      id: nanoid(),
-      active: false,
-      checked: false,
-      pinned: false,
-      session: parseInt(newToDoSessions.value),
-      remaining: parseInt(newToDoSessions.value),
-      todo: newToDo.value
-    }])
-
-    newToDo.value = ""
-    newToDoSessions.value = "1"
-  }
-
-  const handleNewToDoWithEnter = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    console.log(event.key)
-    if (event.key !== "Enter") return
-
-    const newToDo: HTMLInputElement = event.currentTarget
-
-    if (newToDo.value === "") return
+  const handleNewTodo = (newToDo: HTMLInputElement): void => {
+    if (newToDo.value === "") {
+      AddAlert({
+        type: Alerts.warning,
+        message: "Cannot add empty tasks"
+      })
+      return
+    }
 
     AddTodo([category[0], {
       id: nanoid(),
@@ -56,6 +39,17 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
     newToDo.value = ""
     setNewSessionCount(1)
+  }
+
+  const handleNewToDoWithCheck = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>): void => {
+    const newToDo: HTMLInputElement = (event.currentTarget.previousSibling as HTMLInputElement).previousSibling as HTMLInputElement
+    handleNewTodo(newToDo)
+  }
+
+  const handleNewToDoWithEnter = (event: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (event.key !== "Enter") return
+    const newToDo: HTMLInputElement = event.currentTarget
+    handleNewTodo(newToDo)
   }
 
   return <div>
@@ -76,7 +70,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
           title="Estimated required pomodoro sessions"
           name="sessions"
           min="1"
-          className="w-10 h-14 text-center bg-cyan-700"
+          className="w-10 h-14 text-center bg-cyan-700 rounded-none"
         />
         <div className="flex flex-col">
           <button
@@ -103,7 +97,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
       {/* Add button */}
       <button
         className="grid place-items-center w-14 h-14 bg-green-700 hover:bg-green-800 text-green-100 hover:text-green-200 transition-colors rounded-r-lg"
-        onClick={(event) => handleNewToDo(event)}
+        onClick={(event) => handleNewToDoWithCheck(event)}
         title="Add task"
       >
         <Plus />

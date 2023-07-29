@@ -104,7 +104,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
         type="number"
         min="0"
         title="Estimated required pomodoro sessions"
-        className="h-14 w-10 text-center bg-cyan-700"
+        className="h-14 w-10 text-center bg-cyan-700 rounded-none"
       />
       <div className="flex flex-col">
         <button

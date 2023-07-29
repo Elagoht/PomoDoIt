@@ -45,6 +45,7 @@ const CategoryCard: FC = () => {
       })
       RenameCategory([todos[category][0], text])
       setRenaming(false)
+      setDeleting(false)
     }
   }
 
@@ -54,7 +55,10 @@ const CategoryCard: FC = () => {
   }
 
   const handleRenameWithEnter = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    if (event.key === "Escape") setRenaming(false)
+    if (event.key === "Escape") {
+      setRenaming(false)
+      setDeleting(false)
+    }
     if (event.key !== "Enter") return
 
     const text = event.currentTarget.value.trim()
@@ -62,7 +66,7 @@ const CategoryCard: FC = () => {
   }
 
   return categories.length === 0
-    ? <AddNewCategory setRename={setRenaming} setAddCategory={setAddCategory} />
+    ? <AddNewCategory setRename={setRenaming} setDeleting={setDeleting} setAddCategory={setAddCategory} />
     : <div className="flex flex-col">
       <label htmlFor="category" className="text-xl mb-1">Categories</label>
       <div className="flex gap-2 justify-center items-center">
@@ -143,29 +147,23 @@ const CategoryCard: FC = () => {
             animate={{ height: "2.5rem", marginTop: "0.5rem", marginBottom: "0.5rem", opacity: 1 }}
             exit={{ height: 0, marginTop: 0, marginBottom: 0, opacity: 0 }}
           >
+            <button
+              className="w-10 shrink-0 grid place-items-center overflow-hidden bg-red-700 hover:bg-red-800 transition-colors rounded-lg"
+              onClick={() => setDeleting(prev => !prev)}
+            >
+              {deleting
+                ? <X />
+                : <Trash2 />
+              }
+            </button>
             <AnimatePresence mode="wait">
-              {!deleting
-                ? <motion.button
-                  initial={{ width: "5.5rem" }}
-                  animate={{ width: "2.5rem" }}
-                  exit={{ width: "5.5rem" }}
-                  className="w-10 shrink-0 grid place-items-center overflow-hidden bg-red-700 hover:bg-red-800 transition-colors rounded-lg"
-                  onClick={() => setDeleting(true)}
-                >
-                  <Trash2 />
-                </motion.button>
-                : <motion.div
+              {deleting
+                && <motion.div
                   className="flex gap-2"
-                  initial={{ width: "2.5rem" }}
-                  animate={{ width: "5.5rem" }}
-                  exit={{ width: "2.5rem" }}
+                  initial={{ width: 0, marginRight: "-.5rem" }}
+                  animate={{ width: "2.5rem", marginRight: 0 }}
+                  exit={{ width: 0, marginRight: "-.5rem" }}
                 >
-                  <button
-                    className="w-10 shrink-0 grid place-items-center overflow-hidden bg-stone-600 hover:bg-stone-700 transition-colors rounded-lg"
-                    onClick={() => setDeleting(false)}
-                  >
-                    <X />
-                  </button>
                   <button
                     className="w-10 shrink-0 grid place-items-center overflow-hidden bg-green-600 hover:bg-green-700 transition-colors rounded-lg"
                     onClick={() => {
@@ -195,7 +193,10 @@ const CategoryCard: FC = () => {
             </input>
             <button
               className="w-10 shrink-0 grid place-items-center overflow-hidden bg-stone-600 hover:bg-stone-700 transition-colors rounded-lg"
-              onClick={() => setRenaming(false)}
+              onClick={() => {
+                setRenaming(false)
+                setDeleting(false)
+              }}
             >
               <X />
             </button>
@@ -211,7 +212,7 @@ const CategoryCard: FC = () => {
       <AnimatePresence mode="wait">
         {
           addCategory &&
-          <AddNewCategory setRename={setRenaming} setAddCategory={setAddCategory} />
+          <AddNewCategory setRename={setRenaming} setDeleting={setDeleting} setAddCategory={setAddCategory} />
         }
       </AnimatePresence>
 
@@ -223,15 +224,6 @@ const CategoryCard: FC = () => {
             animate={{ height: "2.5rem", marginTop: "0.5rem", marginBottom: "0.5rem", opacity: 1 }}
             exit={{ height: 0, marginTop: 0, marginBottom: 0, opacity: 0 }}
           >
-            <div className="text-stone-100 h-full p-2 ">Clear Checked Todos</div>
-            <button
-              className="w-10 shrink-0 grid place-items-center bg-stone-600 hover:bg-stone-700 transition-colors rounded-lg overflow-hidden"
-              onClick={() => {
-                setOptionsMenu(false)
-              }}
-            >
-              <X />
-            </button>
             <button
               className="w-10 shrink-0 grid place-items-center bg-green-600 hover:bg-green-700 transition-colors rounded-lg overflow-hidden"
               onClick={() => {
@@ -240,6 +232,11 @@ const CategoryCard: FC = () => {
               }}
             >
               <Check />
+            </button>
+            <button
+              className=" shrink-0 flex items-center px-2 bg-stone-600 rounded-lg overflow-hidden"
+            >
+              Clear checked tasks
             </button>
           </motion.div>
         }

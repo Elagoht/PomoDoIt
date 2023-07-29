@@ -9,10 +9,11 @@ import { Alerts } from '../utils/enums'
 
 interface AddNewCategoryProps {
   setRename: (value: React.SetStateAction<boolean>) => void
+  setDeleting: (value: React.SetStateAction<boolean>) => void
   setAddCategory: (value: React.SetStateAction<boolean>) => void
 }
 
-const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) => {
+const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setDeleting, setAddCategory }) => {
 
   const categories = Object.keys(
     useSelector((state: RootState) => state.Todos.todos)
@@ -30,6 +31,7 @@ const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) 
     else {
       AddCategory(text)
       setRename(false)
+      setDeleting(false)
       setAddCategory(false)
       SetCategory(categories.length)
       AddAlert({
@@ -47,7 +49,7 @@ const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) 
   >
     <input
       id="category-adder"
-      placeholder="Add a category for your todos!"
+      placeholder="Add a category for your tasks!"
       className="flex-1 px-2 rounded-lg bg-stone-900 text-stone-100 min-w-0"
       onKeyDown={(event) => {
         if (event.key !== "Enter") return
@@ -55,15 +57,19 @@ const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) 
         handleAddCategory(text)
       }}
     />
-    <button
-      className="w-10 grid place-items-center overflow-hidden bg-stone-600 hover:bg-stone-700 transition-colors rounded-lg"
-      onClick={() => {
-        setRename(false)
-        setAddCategory(false)
-      }}
-    >
-      <X />
-    </button>
+    {
+      categories.length !== 0 &&
+      <button
+        className="w-10 grid place-items-center overflow-hidden bg-stone-600 hover:bg-stone-700 transition-colors rounded-lg"
+        onClick={() => {
+          setRename(false)
+          setDeleting(false)
+          setAddCategory(false)
+        }}
+      >
+        <X />
+      </button>
+    }
     <button
       type="submit"
       className="w-10 grid place-items-center overflow-hidden bg-green-600 hover:bg-green-700 rounded-lg"
