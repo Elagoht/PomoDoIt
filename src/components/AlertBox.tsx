@@ -1,4 +1,4 @@
-import { FC, useRef } from "react"
+import { FC } from "react"
 import Alert from "./Alert"
 import { useSelector } from "react-redux"
 import { RootState } from "../contexts"
@@ -10,16 +10,20 @@ const AlertBox: FC = () => {
   const [animationParent] = useAutoAnimate()
 
   return <div
-    className="fixed top-0 left-0 w-full p-4 gap-2 flex flex-col z-50"
-    ref={animationParent}
+    className="fixed top-0 left-0 w-full"
   >
-    {alerts.map((item, index) => (
-      <Alert
-        key={index}
-        message={item.message}
-        type={item.type}
-      />
-    ))}
+    <div
+      className="p-4 gap-2 flex flex-col z-50"
+      ref={animationParent}
+    >
+      {alerts.map((item, index) => (
+        <Alert
+          key={index}
+          message={item.message}
+          type={item.type}
+        />
+      ))}
+    </div>
   </div>
 }
 
