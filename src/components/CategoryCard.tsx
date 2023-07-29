@@ -7,6 +7,8 @@ import { AnimatePresence, motion } from "framer-motion"
 import { ClearCheckedTodos, RemoveCategory, RenameCategory, SetCategory } from "../utils/states"
 import AddNewCategory from "./AddNewCategory"
 import classNames from "classnames"
+import { Alerts } from "../utils/enums"
+import { AddAlert } from "../utils/alert"
 
 const CategoryCard: FC = () => {
 
@@ -20,16 +22,35 @@ const CategoryCard: FC = () => {
   const todos = Object.entries(todosState)
   const categories = Object.keys(todosState)
 
-  const handleRenameWithTick = (): void => {
-    const text = (document.querySelector("#rename-input") as HTMLInputElement).value.trim()
+  const checkRenameInput = (text: string) => {
     if (text === "") {
-      console.warn("Category name cannot be leave blank")
+      AddAlert({
+        type: Alerts.warning,
+        message: "Category name cannot be leave blank."
+      })
+    } else if (todos[category][0] === text) {
+      AddAlert({
+        type: Alerts.warning,
+        message: "Category name has not changed."
+      })
     } else if (categories.includes(text)) {
-      console.warn("This category is already exists")
+      AddAlert({
+        type: Alerts.warning,
+        message: "This category is already exists."
+      })
     } else {
+      AddAlert({
+        type: Alerts.inform,
+        message: `The category "${todos[category][0]}" renamed as "${text}" successfully.`
+      })
       RenameCategory([todos[category][0], text])
       setRenaming(false)
     }
+  }
+
+  const handleRenameWithTick = (): void => {
+    const text = (document.querySelector("#rename-input") as HTMLInputElement).value.trim()
+    checkRenameInput(text)
   }
 
   const handleRenameWithEnter = (event: React.KeyboardEvent<HTMLInputElement>): void => {
@@ -37,14 +58,7 @@ const CategoryCard: FC = () => {
     if (event.key !== "Enter") return
 
     const text = event.currentTarget.value.trim()
-    if (text === "") {
-      console.warn("Category name cannot be leave blank")
-    } else if (categories.includes(text)) {
-      console.warn("This category is already exists")
-    } else {
-      RenameCategory([todos[category][0], text])
-      setRenaming(false)
-    }
+    checkRenameInput(text)
   }
 
   return categories.length === 0
@@ -156,7 +170,12 @@ const CategoryCard: FC = () => {
                     className="w-10 shrink-0 grid place-items-center overflow-hidden bg-green-600 hover:bg-green-700 transition-colors rounded-lg"
                     onClick={() => {
                       RemoveCategory(categories[category])
+                      AddAlert({
+                        type: Alerts.inform,
+                        message: `The category "${categories[category]}" deleted successfully.`
+                      })
                       SetCategory(category > 0 ? category - 1 : 0)
+                      setRenaming(false)
                       setDeleting(false)
                     }}
                   >
@@ -226,7 +245,7 @@ const CategoryCard: FC = () => {
         }
       </AnimatePresence>
 
-      <hr className="border-red-700 border m-4" />
+      <hr className="border-stone-700 border m-4" />
 
       <TodoList category={todos[category]} />
 

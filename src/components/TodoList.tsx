@@ -117,26 +117,32 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
     >
       <div className="text-xl">Tasks</div>
 
-      {structuredClone(todos)
-        .sort((a, b) =>
-          a.active !== b.active
-            ? a.active
-              ? -1
-              : 1
-            : a.pinned !== b.pinned
-              ? (a.pinned ? -1 : 1)
-              : a.checked !== b.checked
-                ? a.checked
-                  ? 1
-                  : -1
-                : a.session - b.session)
-        .map((item, index) => (
-          <TodoItem
-            categoryName={categoryName}
-            index={index} key={item.id}
-            item={item}
-          />
-        ))
+      {todos.length
+        ? structuredClone(todos)
+          .sort((a, b) =>
+            a.active !== b.active
+              ? a.active
+                ? -1
+                : 1
+              : a.pinned !== b.pinned
+                ? (a.pinned ? -1 : 1)
+                : a.checked !== b.checked
+                  ? a.checked
+                    ? 1
+                    : -1
+                  : a.session - b.session)
+          .map((item, index) => (
+            <TodoItem
+              categoryName={categoryName}
+              index={index} key={item.id}
+              item={item}
+            />
+          ))
+        : <div
+          className="bg-yellow-800 text-stone-100 border border-yellow-700 rounded-lg cursor-pointer my-1 h-14 px-4 grid place-items-center text-center"
+        >
+          There is nothing to do!
+        </div>
       }
 
     </div>

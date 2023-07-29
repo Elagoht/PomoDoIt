@@ -1,9 +1,11 @@
+import AlertBox from "./components/AlertBox"
 import CategoryCard from "./components/CategoryCard"
 import ClockSection from "./components/ClockSection"
 import { FC } from "react"
 
 const App: FC = () => {
   return <>
+    <AlertBox />
     <ClockSection />
     <div
       id="todo-container"

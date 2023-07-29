@@ -4,6 +4,8 @@ import classNames from "classnames"
 import { IToDo } from "../types/states"
 import { X, Pin, PinOff, Check, LocateFixed, Locate, ChevronDown, ChevronUp } from "lucide-react"
 import { AnimatePresence, motion } from "framer-motion"
+import { AddAlert } from "../utils/alert"
+import { Alerts } from "../utils/enums"
 
 interface TodoItemProps {
   categoryName: string
@@ -41,9 +43,15 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
         "line-through": item.checked
       })}
       defaultValue={item.todo}
-      placeholder="Don't leave todos empty"
+      placeholder="Don't leave tasks empty"
       title={item.todo}
-      onBlur={(event) => SetTodo([categoryName, item.id, event.currentTarget.value])}
+      onBlur={(event) => {
+        if (event.currentTarget.value === "") AddAlert({
+          type: Alerts.warning,
+          message: "Don't leave tasks empty."
+        })
+        SetTodo([categoryName, item.id, event.currentTarget.value])
+      }}
     />
 
     {/* Pin and Active */}

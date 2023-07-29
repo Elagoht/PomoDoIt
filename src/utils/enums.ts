@@ -3,3 +3,8 @@ export enum PomodoroState {
   "short break",
   "long break"
 }
+
+export enum Alerts {
+  "inform",
+  "warning"
+}

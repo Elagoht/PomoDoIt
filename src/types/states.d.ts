@@ -1,4 +1,4 @@
-import { PomodoroState } from "../utils/enums"
+import { Alerts, PomodoroState } from "../utils/enums"
 
 export interface IToDo {
   id: string
@@ -26,4 +26,13 @@ export interface IPomodoro {
 
 export interface ICategory {
   name: number
+}
+
+export type IAlert = {
+  type: Alerts
+  message: string
+}
+
+export interface IAlerts {
+  alerts: Alert[]
 }

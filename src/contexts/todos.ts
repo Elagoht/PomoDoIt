@@ -54,13 +54,6 @@ const Todos = createSlice<IToDos, SliceCaseReducers<IToDos>>({
     },
     renameCategory: (state: IToDos, action: PayloadAction<[string, string]>) => {
       const [oldKey, newKey] = action.payload
-      if (typeof state.todos !== 'object' || state.todos === null)
-        throw new Error('Invalid JSON object')
-      if (!state.todos[oldKey])
-        throw new Error('The provided key does not exist in the JSON')
-      if (oldKey === newKey)
-        throw new Error('The old and new keys cannot be the same')
-
       let updatedJson = {}
       Object.keys(state.todos).forEach((key) => {
         const updatedKey = key === oldKey ? newKey : key
