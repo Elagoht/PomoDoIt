@@ -2,7 +2,7 @@ import { FC } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "../contexts"
 import { ChevronRightCircle, PauseCircle, PlayCircle } from "lucide-react"
-import { DecreaseSessions, SetPlaying, SetToLong } from "../utils/states"
+import { DecreaseSessions, SetPlaying, SetState, SetToLong } from "../utils/states"
 import Clock from "./Clock"
 import { PomodoroState } from "../utils/enums"
 import StateSelector from "./StateSelector"
@@ -60,7 +60,11 @@ const ClockSection: FC = () => {
         }
       </button>
       <button
-      // onClick={() => { }}
+        onClick={() => SetState(
+          pomodoro.state === PomodoroState["work"]
+            ? PomodoroState["short break"]
+            : PomodoroState["work"]
+        )}
       >
         <ChevronRightCircle strokeWidth={2} size={64} className="text-neutral-100 hover:text-neutral-300 active:text-neutral-400 transition-colors" />
       </button>
