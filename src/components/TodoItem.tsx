@@ -22,7 +22,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
       "!border-blue-500": item.todo !== "" && item.session === 0 && !item.checked,
       "!border-red-500": item.todo === "",
       "!bg-lime-200 dark:!bg-lime-700 dark:text-neutral-100": item.active,
-      "!bg-neutral-400 dark:!bg-neutral-700 opacity-50 dark:text-neutral-100": item.checked
+      "!bg-neutral-400 dark:!bg-neutral-700 !bg-opacity-80 dark:text-neutral-100": item.checked
     })}
   >
     <input

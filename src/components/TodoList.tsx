@@ -59,11 +59,11 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
   }
 
   return <div>
-
+    <div className="text-xl">Add a new task</div>
     <label className="bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 flex items-center border-2 border-neutral-900 dark:border-neutral-100 rounded-lg cursor-pointer my-1">
 
       <input
-        placeholder="Add a new responsibility"
+        placeholder="A new responsibility"
         className="flex-1 line-clamp-1 text-ellipsis bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 h-14 outline-none rounded-l-lg px-4"
         onKeyDown={(event) => handleNewToDoWithEnter(event)}
       />
@@ -105,10 +105,12 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
       </button>
     </label>
 
+    {/* Todos */}
     <div
       ref={animationParent}
-      className="my-8"
+      className="mt-4"
     >
+      <div className="text-xl">Tasks</div>
 
       {structuredClone(todos)
         .sort((a, b) =>

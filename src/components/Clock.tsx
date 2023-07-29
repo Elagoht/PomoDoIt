@@ -32,7 +32,9 @@ const Clock: FC<ClockProps> = ({ nextState, callback }) => {
   return <CountdownCircleTimer
     isPlaying={pomodoro.playing}
     size={200}
-    trailColor="#212121"
+    trailColor="#231223"
+    trailStrokeWidth={5}
+    strokeWidth={15}
     duration={pomodoro.duration}
     initialRemainingTime={pomodoro.remaining}
     colors={["#52cc63", "#c5ff02", "#ffff09", "#ffd902", "#ff1600"]}
