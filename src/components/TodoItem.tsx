@@ -18,7 +18,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
   return <label
     htmlFor={`todo-${index}`}
     className={classNames({
-      "transition-colors bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 flex items-center border-2 border-neutral-900 dark:border-neutral-100 rounded-lg cursor-pointer my-1": true,
+      "transition-colors bg-neutral-50 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 flex items-center border border-neutral-900 dark:border-neutral-100 rounded-lg cursor-pointer my-1": true,
       "!border-blue-500": item.todo !== "" && item.session === 0 && !item.checked,
       "!border-red-500": item.todo === "",
       "!bg-lime-200 dark:!bg-lime-700 dark:text-neutral-100": item.active,
@@ -140,7 +140,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
     <button
       onClick={() => setDeletion(prev => !prev)}
       className={classNames({
-        "z-10 w-14 h-14 grid place-items-center text-red-600 hover:text-red-800 dark:text-red-100 dark:hover:text-red-200 transition-colors rounded-r": true,
+        "z-10 w-14 h-14 grid place-items-center text-red-600 hover:text-red-800 dark:text-red-100 dark:hover:text-red-200 transition-colors rounded-r-md": true,
         "bg-red-100 hover:bg-red-200 dark:bg-red-700 dark:hover:bg-red-800": !deletion,
         "bg-red-200 hover:bg-red-300 dark:bg-red-800 dark:hover:bg-red-900": deletion,
       })}

@@ -53,7 +53,7 @@ const CategoryCard: FC = () => {
       <div className="text-xl mb-1">Categories</div>
       <div className="flex gap-2 justify-center items-center">
         <select
-          className="h-10 px-2 bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 border-2 border-neutral-900 dark:border-neutral-100 rounded-lg flex-1"
+          className="h-10 px-2 bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 border border-neutral-900 dark:border-neutral-100 rounded-lg flex-1"
           value={category}
           onChange={(event) => {
             SetCategory(parseInt(event.currentTarget.value))
@@ -77,7 +77,7 @@ const CategoryCard: FC = () => {
               setOptionsMenu(false)
             }}
             className={classNames({
-              "flex w-10 h-10 border-2 items-center justify-center rounded-lg transition-colors": true,
+              "flex w-10 h-10 border items-center justify-center rounded-lg transition-colors": true,
               "bg-blue-400 border-blue-500": renaming,
               "border-neutral-50": !renaming
             })}
@@ -92,7 +92,7 @@ const CategoryCard: FC = () => {
               setOptionsMenu(false)
             }}
             className={classNames({
-              "flex w-10 h-10 border-2 items-center justify-center rounded-lg transition-colors": true,
+              "flex w-10 h-10 border items-center justify-center rounded-lg transition-colors": true,
               "bg-emerald-400 border-emerald-500": addCategory,
               "border-neutral-50": !addCategory
             })}
@@ -101,7 +101,7 @@ const CategoryCard: FC = () => {
           </button>
           <button
             className={classNames({
-              "flex w-10 h-10 border-2 items-center justify-center rounded-lg transition-colors": true,
+              "flex w-10 h-10 border items-center justify-center rounded-lg transition-colors": true,
               "bg-neutral-400 border-neutral-500": optionsMenu,
               "border-neutral-100": !optionsMenu
             })}

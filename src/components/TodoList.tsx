@@ -60,7 +60,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
   return <div>
     <div className="text-xl">Add a new task</div>
-    <label className="bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 flex items-center border-2 border-neutral-900 dark:border-neutral-100 rounded-lg cursor-pointer my-1">
+    <label className="bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 flex items-center border border-neutral-900 dark:border-neutral-100 rounded-lg cursor-pointer my-1">
 
       <input
         placeholder="A new responsibility"
@@ -98,7 +98,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
       {/* Add button */}
       <button
-        className="grid place-items-center w-14 h-14 bg-green-100 hover:bg-green-200 text-green-600 hover:text-green-800 dark:bg-green-700 dark:hover:bg-green-800 dark:text-green-100 dark:hover:text-green-200 transition-colors rounded-r"
+        className="grid place-items-center w-14 h-14 bg-green-100 hover:bg-green-200 text-green-600 hover:text-green-800 dark:bg-green-700 dark:hover:bg-green-800 dark:text-green-100 dark:hover:text-green-200 transition-colors rounded-r-md"
         onClick={(event) => handleNewToDo(event)}
       >
         <Plus />
