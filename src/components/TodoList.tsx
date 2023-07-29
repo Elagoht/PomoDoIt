@@ -65,7 +65,7 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
       <div className="flex text-stone-100">
         <input
           value={newSessionCount}
-          onChange={(event) => setNewSessionCount(parseInt(event.currentTarget.value))}
+          onChange={(event) => setNewSessionCount(+event.currentTarget.value)}
           type="number"
           title="Estimated required pomodoro sessions"
           name="sessions"

@@ -99,7 +99,7 @@ const TodoItem: FC<TodoItemProps> = ({ categoryName, index, item }) => {
       <input
         value={item.session}
         onChange={(event) =>
-          SetTodoSessions([categoryName, item.id, parseInt(event.currentTarget.value)])
+          SetTodoSessions([categoryName, item.id, +event.currentTarget.value])
         }
         type="number"
         min="0"

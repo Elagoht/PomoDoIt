@@ -76,7 +76,7 @@ const CategoryCard: FC = () => {
           className="h-10 px-2 bg-stone-900 text-stone-100 border border-stone-100 rounded-lg flex-1"
           value={category}
           onChange={(event) => {
-            SetCategory(parseInt(event.currentTarget.value))
+            SetCategory(+event.currentTarget.value)
             setRenaming(false)
             setDeleting(false)
             setAddCategory(false)
