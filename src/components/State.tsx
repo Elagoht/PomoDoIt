@@ -12,7 +12,7 @@ const State: FC = () => {
     <div
       className={classNames({
         "text-center p-2 flex-1 whitespace-nowrap text-stone-100": true,
-        "bg-stone-900 rounded-lg": pomodoro.state === PomodoroState.work
+        "text-orange-400 bg-stone-900 rounded-lg": pomodoro.state === PomodoroState.work
       })}
     >
       work!
@@ -20,7 +20,7 @@ const State: FC = () => {
     <div
       className={classNames({
         "text-center p-2 flex-1 whitespace-nowrap text-stone-100": true,
-        "bg-stone-900 rounded-lg": pomodoro.state === PomodoroState["short break"]
+        "text-orange-400 bg-stone-900 rounded-lg": pomodoro.state === PomodoroState["short break"]
       })}
     >
       short break
@@ -28,7 +28,7 @@ const State: FC = () => {
     <div
       className={classNames({
         "text-center p-2 flex-1 whitespace-nowrap text-stone-100": true,
-        "bg-stone-900 rounded-lg": pomodoro.state === PomodoroState["long break"]
+        "text-orange-400 bg-stone-900 rounded-lg": pomodoro.state === PomodoroState["long break"]
       })}
     >
       long break
