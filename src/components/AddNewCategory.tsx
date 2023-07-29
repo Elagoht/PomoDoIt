@@ -25,7 +25,7 @@ const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) 
     <input
       id="category-adder"
       placeholder="Add a category for your todos!"
-      className="flex-1 px-2 rounded-lg bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 min-w-0"
+      className="flex-1 px-2 rounded-lg bg-stone-900 text-stone-100 min-w-0"
       onKeyDown={(event) => {
         if (event.key !== "Enter") return
         if (event.currentTarget.value !== "") {
@@ -37,7 +37,7 @@ const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) 
       }}
     />
     <button
-      className="w-10 grid place-items-center overflow-hidden bg-gray-500 hover:bg-gray-600 transition-colors rounded-lg"
+      className="w-10 grid place-items-center overflow-hidden bg-stone-600 hover:bg-stone-700 transition-colors rounded-lg"
       onClick={() => {
         setRename(false)
         setAddCategory(false)
@@ -47,7 +47,7 @@ const AddNewCategory: FC<AddNewCategoryProps> = ({ setRename, setAddCategory }) 
     </button>
     <button
       type="submit"
-      className="w-10 grid place-items-center overflow-hidden bg-green-500 rounded-lg"
+      className="w-10 grid place-items-center overflow-hidden bg-green-600 hover:bg-green-700 rounded-lg"
       onClick={() => {
         const text = (document.querySelector("#category-adder") as HTMLInputElement).value
         if (text !== "") {

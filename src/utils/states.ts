@@ -52,7 +52,7 @@ export const SetTodoChecked = (payload: [string, string, boolean]): void => {
   store.dispatch(setTodoChecked(payload))
   saveTodos()
 }
-export const SetTodoPinend = (payload: [string, string, boolean]): void => {
+export const SetTodoPinned = (payload: [string, string, boolean]): void => {
   store.dispatch(setTodoPinned(payload))
   saveTodos()
 }

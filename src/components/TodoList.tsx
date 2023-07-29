@@ -60,36 +60,40 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
   return <div>
     <div className="text-xl">Add a new task</div>
-    <label className="bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 flex items-center border border-neutral-900 dark:border-neutral-100 rounded-lg cursor-pointer my-1">
+    <label className="bg-stone-900 text-stone-100 flex items-center border border-stone-100 rounded-lg cursor-pointer my-1">
 
       <input
         placeholder="A new responsibility"
-        className="flex-1 line-clamp-1 text-ellipsis bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 h-14 outline-none rounded-l-lg px-4"
+        className="flex-1 line-clamp-1 text-ellipsis bg-stone-900 text-stone-100 focus:brightness-95 h-14 outline-none rounded-l-lg px-4"
         onKeyDown={(event) => handleNewToDoWithEnter(event)}
       />
       {/* Session */}
-      <div className="flex text-neutral-900 dark:text-neutral-100">
+      <div className="flex text-stone-100">
         <input
           value={newSessionCount}
           onChange={(event) => setNewSessionCount(parseInt(event.currentTarget.value))}
           type="number"
+          title="Estimated required pomodoro sessions"
+          name="sessions"
           min="1"
-          className="w-10 h-14 text-center bg-sky-100 dark:bg-sky-700"
+          className="w-10 h-14 text-center bg-cyan-700"
         />
         <div className="flex flex-col">
           <button
-            className="h-7 bg-sky-200 dark:bg-sky-800"
+            className="h-7 bg-cyan-800"
             onClick={() => setNewSessionCount(prev => prev + 1)}
+            title="Increase required sessions"
           >
             <ChevronUp />
           </button>
           <button
-            className="h-7 bg-sky-300 dark:bg-sky-900 "
+            className="h-7 bg-cyan-900 "
             onClick={() => setNewSessionCount(prev =>
               prev > 1
                 ? prev - 1
                 : 1
             )}
+            title="Decrease required sessions"
           >
             <ChevronDown />
           </button>
@@ -98,8 +102,9 @@ const TodoList: FC<TodoListProps> = ({ category }) => {
 
       {/* Add button */}
       <button
-        className="grid place-items-center w-14 h-14 bg-green-100 hover:bg-green-200 text-green-600 hover:text-green-800 dark:bg-green-700 dark:hover:bg-green-800 dark:text-green-100 dark:hover:text-green-200 transition-colors rounded-r-md"
+        className="grid place-items-center w-14 h-14 bg-green-700 hover:bg-green-800 text-green-100 hover:text-green-200 transition-colors rounded-r-lg"
         onClick={(event) => handleNewToDo(event)}
+        title="Add task"
       >
         <Plus />
       </button>

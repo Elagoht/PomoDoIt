@@ -11,11 +11,11 @@
     @apply max-sm:text-sm
   }
   body {
-    @apply p-4 bg-red-500 dark:bg-red-900
+    @apply p-4 bg-stone-800 text-stone-200
   }
   .clock-timer {
     font-family: 'Fira Mono', monospace;
-    @apply drop-shadow shadow-current;
+    text-shadow: 0 0 .2rem black;
   }
 }
 @layer base {

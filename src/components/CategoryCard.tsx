@@ -50,10 +50,12 @@ const CategoryCard: FC = () => {
   return categories.length === 0
     ? <AddNewCategory setRename={setRenaming} setAddCategory={setAddCategory} />
     : <div className="flex flex-col">
-      <div className="text-xl mb-1">Categories</div>
+      <label htmlFor="category" className="text-xl mb-1">Categories</label>
       <div className="flex gap-2 justify-center items-center">
         <select
-          className="h-10 px-2 bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 border border-neutral-900 dark:border-neutral-100 rounded-lg flex-1"
+          aria-label="Category selection"
+          title="Category selection"
+          className="h-10 px-2 bg-stone-900 text-stone-100 border border-stone-100 rounded-lg flex-1"
           value={category}
           onChange={(event) => {
             SetCategory(parseInt(event.currentTarget.value))
@@ -76,10 +78,11 @@ const CategoryCard: FC = () => {
               setDeleting(false)
               setOptionsMenu(false)
             }}
+            title="Edit Category"
             className={classNames({
               "flex w-10 h-10 border items-center justify-center rounded-lg transition-colors": true,
-              "bg-blue-400 border-blue-500": renaming,
-              "border-neutral-50": !renaming
+              "bg-sky-600 border-sky-600": renaming,
+              "border-stone-50": !renaming
             })}
           >
             <PenLine />
@@ -93,17 +96,18 @@ const CategoryCard: FC = () => {
             }}
             className={classNames({
               "flex w-10 h-10 border items-center justify-center rounded-lg transition-colors": true,
-              "bg-emerald-400 border-emerald-500": addCategory,
-              "border-neutral-50": !addCategory
+              "bg-green-600 border-green-600": addCategory,
+              "border-stone-50": !addCategory
             })}
+            title="Add New Category"
           >
             <Plus />
           </button>
           <button
             className={classNames({
               "flex w-10 h-10 border items-center justify-center rounded-lg transition-colors": true,
-              "bg-neutral-400 border-neutral-500": optionsMenu,
-              "border-neutral-100": !optionsMenu
+              "bg-orange-600 border-orange-600": optionsMenu,
+              "border-stone-100": !optionsMenu
             })}
             onClick={() => {
               setOptionsMenu(prev => !prev)
@@ -111,6 +115,7 @@ const CategoryCard: FC = () => {
               setRenaming(false)
               setDeleting(false)
             }}
+            title="More"
           >
             <MoreVertical />
           </button>
@@ -130,7 +135,7 @@ const CategoryCard: FC = () => {
                   initial={{ width: "5.5rem" }}
                   animate={{ width: "2.5rem" }}
                   exit={{ width: "5.5rem" }}
-                  className="w-10 shrink-0 grid place-items-center overflow-hidden bg-red-600 hover:bg-red-700 dark:bg-red-700 dark:hover:bg-red-800 transition-colors rounded-lg"
+                  className="w-10 shrink-0 grid place-items-center overflow-hidden bg-red-700 hover:bg-red-800 transition-colors rounded-lg"
                   onClick={() => setDeleting(true)}
                 >
                   <Trash2 />
@@ -142,13 +147,13 @@ const CategoryCard: FC = () => {
                   exit={{ width: "2.5rem" }}
                 >
                   <button
-                    className="w-10 shrink-0 grid place-items-center overflow-hidden bg-gray-500 hover:bg-gray-600 transition-colors rounded-lg"
+                    className="w-10 shrink-0 grid place-items-center overflow-hidden bg-stone-600 hover:bg-stone-700 transition-colors rounded-lg"
                     onClick={() => setDeleting(false)}
                   >
                     <X />
                   </button>
                   <button
-                    className="w-10 shrink-0 grid place-items-center overflow-hidden bg-green-500 hover:bg-green-600 transition-colors rounded-lg"
+                    className="w-10 shrink-0 grid place-items-center overflow-hidden bg-green-600 hover:bg-green-700 transition-colors rounded-lg"
                     onClick={() => {
                       RemoveCategory(categories[category])
                       SetCategory(category > 0 ? category - 1 : 0)
@@ -164,19 +169,19 @@ const CategoryCard: FC = () => {
               id="rename-input"
               placeholder="Rename your category"
               defaultValue={categories[category]}
-              className="flex-1 px-2 rounded-lg bg-neutral-100 dark:bg-neutral-900 text-neutral-900 dark:text-neutral-100 min-w-0"
+              className="flex-1 px-2 rounded-lg bg-stone-900 text-stone-100 min-w-0"
               onFocus={() => setDeleting(false)}
               onKeyDown={(event) => handleRenameWithEnter(event)}
             >
             </input>
             <button
-              className="w-10 shrink-0 grid place-items-center overflow-hidden bg-gray-500 hover:bg-gray-600 transition-colors rounded-lg"
+              className="w-10 shrink-0 grid place-items-center overflow-hidden bg-stone-600 hover:bg-stone-700 transition-colors rounded-lg"
               onClick={() => setRenaming(false)}
             >
               <X />
             </button>
             <button
-              className="w-10 shrink-0 grid place-items-center overflow-hidden bg-green-500 hover:bg-green-600 transition-colors rounded-lg"
+              className="w-10 shrink-0 grid place-items-center overflow-hidden bg-green-600 hover:bg-green-700 transition-colors rounded-lg"
               onClick={handleRenameWithTick}
             >
               <Check />
@@ -199,9 +204,9 @@ const CategoryCard: FC = () => {
             animate={{ height: "2.5rem", marginTop: "0.5rem", marginBottom: "0.5rem", opacity: 1 }}
             exit={{ height: 0, marginTop: 0, marginBottom: 0, opacity: 0 }}
           >
-            <div className="text-neutral-100 h-full p-2 ">Clear Checked Todos</div>
+            <div className="text-stone-100 h-full p-2 ">Clear Checked Todos</div>
             <button
-              className="w-10 shrink-0 grid place-items-center bg-neutral-500 hover:bg-neutral-600 transition-colors rounded-lg overflow-hidden"
+              className="w-10 shrink-0 grid place-items-center bg-stone-600 hover:bg-stone-700 transition-colors rounded-lg overflow-hidden"
               onClick={() => {
                 setOptionsMenu(false)
               }}
@@ -209,7 +214,7 @@ const CategoryCard: FC = () => {
               <X />
             </button>
             <button
-              className="w-10 shrink-0 grid place-items-center bg-green-500 hover:bg-green-600 transition-colors rounded-lg overflow-hidden"
+              className="w-10 shrink-0 grid place-items-center bg-green-600 hover:bg-green-700 transition-colors rounded-lg overflow-hidden"
               onClick={() => {
                 ClearCheckedTodos(categories[category])
                 setOptionsMenu(false)
@@ -221,7 +226,7 @@ const CategoryCard: FC = () => {
         }
       </AnimatePresence>
 
-      <hr className="border-red-400 dark:border-red-700 border m-4" />
+      <hr className="border-red-700 border m-4" />
 
       <TodoList category={todos[category]} />
 

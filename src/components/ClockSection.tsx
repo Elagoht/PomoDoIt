@@ -5,7 +5,7 @@ import { ChevronRightCircle, PauseCircle, PlayCircle } from "lucide-react"
 import { DecreaseSessions, SetPlaying, SetState, SetToLong } from "../utils/states"
 import Clock from "./Clock"
 import { PomodoroState } from "../utils/enums"
-import StateSelector from "./StateSelector"
+import State from "./State"
 
 const ClockSection: FC = () => {
 
@@ -53,10 +53,12 @@ const ClockSection: FC = () => {
         onClick={() => {
           SetPlaying(!pomodoro.playing)
         }}
+        aria-label="Play/pause button"
+        title="Play/pause button"
       >
         {pomodoro.playing
-          ? <PauseCircle strokeWidth={1.5} size={96} className="text-neutral-100 hover:text-neutral-300 active:text-neutral-400 transition-colors" />
-          : <PlayCircle strokeWidth={1.5} size={96} className="text-neutral-100 hover:text-neutral-300 active:text-neutral-400 transition-colors" />
+          ? <PauseCircle strokeWidth={1} size={96} className="text-stone-100 hover:text-stone-300 active:text-stone-400 transition-colors" />
+          : <PlayCircle strokeWidth={1} size={96} className="text-stone-100 hover:text-stone-300 active:text-stone-400 transition-colors" />
         }
       </button>
       <button
@@ -65,11 +67,13 @@ const ClockSection: FC = () => {
             ? PomodoroState["short break"]
             : PomodoroState["work"]
         )}
+        aria-label="Next state"
+        title="Next state"
       >
-        <ChevronRightCircle strokeWidth={2} size={64} className="text-neutral-100 hover:text-neutral-300 active:text-neutral-400 transition-colors" />
+        <ChevronRightCircle strokeWidth={1.5} size={64} className="text-stone-100 hover:text-stone-300 active:text-stone-400 transition-colors" />
       </button>
     </div>
-    <StateSelector />
+    <State />
   </div>
 }
 
