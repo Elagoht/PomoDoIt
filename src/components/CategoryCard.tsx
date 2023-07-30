@@ -73,7 +73,7 @@ const CategoryCard: FC = () => {
         <select
           aria-label="Category selection"
           title="Category selection"
-          className="h-10 px-2 bg-stone-900 text-stone-100 border border-stone-100 rounded-lg flex-1"
+          className="h-10 px-2 text-stone-900 border border-stone-900 rounded-lg flex-1" // Tauri specific styling
           value={category}
           onChange={(event) => {
             SetCategory(+event.currentTarget.value)
